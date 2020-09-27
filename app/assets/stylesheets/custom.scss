@@ -5,7 +5,18 @@ body {
   padding-top: 60px;
 }
 
+.flex {
+  display: flex;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
 .welcome-banner {
   padding: 40px 15px;
   text-align: center;
+  input {
+    margin: 0em 0.5em;
+  }
 }
