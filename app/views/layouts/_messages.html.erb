@@ -1,10 +1,6 @@
-<% flash.each do |key, value| %>
-  <div class="alert alert-<%= key %>">
+<% flash.each do |type, message| %>
+  <div class="alert <%= bootstrap_flash(type) %>">
     <a href="#" data-dismiss="alert" class="close">x</a>
-    <ul>
-      <li>
-        <%= value %>
-      </li>
-    </ul>
+    <%= message %>
   </div>
 <% end %>
