@@ -9,7 +9,7 @@ RSpec.describe 'UserSignUps', type: :system do
     it 'redirects to the homepage' do
       visit root_path
 
-      click_on 'Sign up'
+      click_button 'Sign up'
 
       password = 'foobar'
 
@@ -17,7 +17,7 @@ RSpec.describe 'UserSignUps', type: :system do
       fill_in 'Password', with: 'jsmith@example.com'
       fill_in 'Password confirmation', with: 'jsmith@example.com'
 
-      click_on 'Sign up'
+      click_button 'Sign up'
       expect(page).to have_current_path(root_path)
       expect(page).to have_content('email')
     end
