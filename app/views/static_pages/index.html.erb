@@ -4,8 +4,8 @@
   <p class="lead">
     <div class="d-flex">
       <% unless user_signed_in? %>
-        <%= button_to 'Sign up', sign_up_path, class: 'btn btn-primary btn-md mr-1', method: :get %>
-        <%= button_to 'Sign in', sign_in_path, class: 'btn btn-secondary btn-md ml-1', method: :get %>
+        <%= button_to 'Sign up', new_user_registration_path, class: 'btn btn-primary btn-md mr-1', method: :get %>
+        <%= button_to 'Sign in', new_user_session_path, class: 'btn btn-secondary btn-md mx-1', method: :get %>
       <% end %>
     </div>
   </p>
