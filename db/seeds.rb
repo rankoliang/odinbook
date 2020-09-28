@@ -5,3 +5,20 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+100.times do
+  name = Faker::Name.unique.name
+  email = Faker::Internet.email(name: name, separators: '_')
+  password = Devise.friendly_token.first(16)
+
+  user = User.new(
+    name: name,
+    email: email,
+    password: password,
+    password_confirmation: password
+  )
+
+  user.skip_confirmation!
+
+  user.save
+end
