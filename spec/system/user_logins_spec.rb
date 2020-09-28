@@ -27,6 +27,11 @@ RSpec.describe 'UserLogins', type: :system do
       expect(page).to have_link 'Sign out'
       expect(page).to have_no_button('Sign in')
       expect(page).to have_no_button('Sign up')
+
+      click_link 'Sign out'
+
+      expect(page).to have_css '.alert'
+      expect(page).to have_no_link 'Sign out'
     end
   end
 end

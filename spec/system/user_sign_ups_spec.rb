@@ -35,6 +35,7 @@ RSpec.describe 'UserSignUps', type: :system do
       fill_in 'Password confirmation', with: 'hunter2'
 
       click_button 'Sign up'
+
       expect(page).to_not have_current_path(root_path)
     end
   end
