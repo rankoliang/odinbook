@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Users', type: :request do
   describe 'GET /index' do
     context 'when not logged in' do
-      it 'redirects the user' do
+      it 'redirects to new user session path' do
         get '/users/index'
         expect(response).to redirect_to new_user_session_path
       end

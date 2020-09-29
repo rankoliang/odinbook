@@ -16,13 +16,14 @@ RSpec.describe 'UserIndex', type: :system do
   end
 
   context 'when a user is signed in' do
-    it 'sees other users' do
+    it 'renders other users' do
       sign_in users.first
 
       visit users_path
 
       expect(page).to have_current_path(users_path)
       expect(page).to have_button('Add friend', maximum: 10)
+      expect(page).to have_css('.list-group-item', count: 10)
     end
   end
 end

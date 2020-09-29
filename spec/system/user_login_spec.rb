@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'UserLogins', type: :system do
+RSpec.describe 'UserLogin', type: :system do
   before do
     driven_by(:rack_test)
   end
@@ -16,8 +16,8 @@ RSpec.describe 'UserLogins', type: :system do
     end
   end
 
-  context 'when the user signs in' do
-    it 'can destroy a session' do
+  context 'when the user is signed in' do
+    it 'cannot create a new user or session' do
       visit new_user_session_url
 
       fill_in 'Email', with: user.email
@@ -27,6 +27,11 @@ RSpec.describe 'UserLogins', type: :system do
       expect(page).to have_link 'Sign out'
       expect(page).to have_no_button('Sign in')
       expect(page).to have_no_button('Sign up')
+    end
+
+    it 'can destroy a session' do
+      sign_in user
+      visit root_url
 
       click_link 'Sign out'
 
