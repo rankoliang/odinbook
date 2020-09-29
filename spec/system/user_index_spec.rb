@@ -6,20 +6,15 @@ RSpec.describe 'UserIndex', type: :system do
   end
 
   let(:users) { FactoryBot.create_list(:user, 100) }
+  let(:visiting_url) { users_path }
 
-  context 'when a user is logged out' do
-    it 'redirects to the sign in page' do
-      visit users_path
-
-      expect(page).to have_current_path(new_user_session_path)
-    end
-  end
+  it_behaves_like 'a users resource'
 
   context 'when a user is signed in' do
     it 'renders other users' do
       sign_in users.first
 
-      visit users_path
+      visit visiting_url
 
       expect(page).to have_current_path(users_path)
       expect(page).to have_button('Add friend', maximum: 10)
