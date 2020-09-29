@@ -10,6 +10,11 @@ FactoryBot.define do
     password { 'foobar' }
     password_confirmation { 'foobar' }
 
+    trait :from_discord do
+      provider { 'discord' }
+      uid { '123456789' }
+    end
+
     transient do
       confirmed { true }
     end
