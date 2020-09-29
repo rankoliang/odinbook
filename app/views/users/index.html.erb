@@ -1,12 +1,16 @@
-<h1>Users</h1>
-
-<ul class="list-group">
-  <% @users.each do |user| %>
-    <li class="d-flex justify-content-between list-group-item">
-      <%= user.name %>
-      <button class="btn btn-sm btn-outline-primary">
-        Add friend
-      </button>
-    </li>
-  <% end %>
-</ul>
+<div class="d-flex align-items-center justify-content-between" >
+  <h1>Find Friends</h1>
+  <%= will_paginate @users %>
+</div>
+<div>
+  <ul class="list-group">
+    <% @users.each do |user| %>
+      <li class="d-flex justify-content-between list-group-item">
+        <%= user.name %>
+        <button class="btn btn-sm btn-outline-primary">
+          Add friend
+        </button>
+      </li>
+    <% end %>
+  </ul>
+</div>

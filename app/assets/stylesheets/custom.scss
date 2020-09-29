@@ -4,10 +4,13 @@ body {
   padding-top: 5rem;
 }
 
-.field_with_errors input {
-  @extend .is-invalid;
-}
-
 .field_with_errors {
   display: inline;
+  input {
+    @extend .is-invalid;
+  }
+}
+
+ul, ol, dl {
+  margin-bottom: 0;
 }
