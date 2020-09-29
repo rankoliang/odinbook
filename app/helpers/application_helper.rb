@@ -1,7 +1,7 @@
 module ApplicationHelper
-  def bootstrap_flash(type)
-    bootstrap_type = case type
-                     when 'notice', 'success'
+  def bootstrap_flash(flash_type)
+    bootstrap_type = case flash_type
+                     when 'notice'
                        'success'
                      when 'alert'
                        'danger'
