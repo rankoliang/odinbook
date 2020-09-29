@@ -11,16 +11,16 @@ RSpec.describe 'UserSignUp', type: :system do
 
       visit root_path
 
-      click_button 'Sign up'
-
       within main do
+        click_button 'Sign up'
+
         fill_in 'Email', with: 'jsmith@example.com'
         fill_in 'Display name', with: 'jsmith'
         fill_in 'Password', with: password
         fill_in 'Password confirmation', with: password
-      end
 
-      click_button 'Sign up'
+        click_button 'Sign up'
+      end
 
       expect(page).to have_current_path(root_path)
       expect(main).to have_content('email')
@@ -31,15 +31,15 @@ RSpec.describe 'UserSignUp', type: :system do
     it 'does not redirect to the homepage' do
       visit root_path
 
-      click_button 'Sign up'
-
       within main do
+        click_button 'Sign up'
+
         fill_in 'Email', with: ''
         fill_in 'Password', with: 'foobar'
         fill_in 'Password confirmation', with: 'hunter2'
-      end
 
-      click_button 'Sign up'
+        click_button 'Sign up'
+      end
 
       expect(page).to_not have_current_path(root_path)
     end

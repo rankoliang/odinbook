@@ -11,8 +11,8 @@ RSpec.describe 'UserLogin', type: :system do
     it 'can create a new user or session' do
       visit root_url
 
-      expect(page).to have_button('Sign in')
-      expect(page).to have_button('Sign up')
+      expect(main).to have_button 'Sign in'
+      expect(main).to have_button 'Sign up'
     end
   end
 
@@ -24,9 +24,10 @@ RSpec.describe 'UserLogin', type: :system do
       fill_in 'Password', with: user.password
       click_button 'Log in'
 
-      expect(page).to have_link 'Sign out'
-      expect(page).to have_no_button('Sign in')
-      expect(page).to have_no_button('Sign up')
+      expect(header).to have_link 'Sign out'
+
+      expect(page).to have_no_content 'Sign in'
+      expect(page).to have_no_content 'Sign up'
     end
 
     it 'can destroy a session' do
@@ -36,7 +37,7 @@ RSpec.describe 'UserLogin', type: :system do
       click_link 'Sign out'
 
       expect(page).to have_css '.alert'
-      expect(page).to have_no_link 'Sign out'
+      expect(page).to have_no_content 'Sign out'
     end
   end
 end
