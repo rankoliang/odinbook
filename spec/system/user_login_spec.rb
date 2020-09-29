@@ -17,15 +17,23 @@ RSpec.describe 'UserLogin', type: :system do
   end
 
   context 'when the user is signed in' do
-    it 'cannot create a new user or session' do
-      visit new_user_session_url
+    context 'when using the log in form' do
+      before do
+        visit new_user_session_url
 
-      fill_in 'Email', with: user.email
-      fill_in 'Password', with: user.password
-      click_button 'Log in'
+        fill_in 'Email', with: user.email
+        fill_in 'Password', with: user.password
+        click_button 'Log in'
+      end
 
-      expect(main).to have_no_content 'Sign in'
-      expect(main).to have_no_content 'Sign up'
+      it 'cannot create a new user or session' do
+        expect(main).to have_no_content 'Sign in'
+        expect(main).to have_no_content 'Sign up'
+      end
+
+      it 'redirects to their profile' do
+        expect(page).to have_current_path user_path(user)
+      end
     end
 
     it 'can destroy a session' do
