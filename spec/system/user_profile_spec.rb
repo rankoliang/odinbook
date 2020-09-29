@@ -12,14 +12,22 @@ RSpec.describe 'UserProfile', type: :system do
   end
 
   context 'when a user is signed in' do
-    before do
-      sign_in user
-    end
-    context 'when it visits their own profile' do
-      it 'renders the user profile page' do
+    context 'when a user visits their own profile' do
+      before do
+        sign_in user
         visit user_url(user)
+      end
+      let(:profile) { find('.profile') }
+      it 'renders their display name' do
+        expect(profile).to have_content(user.name)
+      end
 
-        expect(main).to have_content(user.name)
+      it 'renders their profile_description' do
+        expect(profile).to have_content(user.profile_description)
+      end
+
+      xit 'renders their profile picture' do
+        expect(profile).to have_selector 'img'
       end
     end
   end

@@ -1,1 +1,11 @@
-<%= @user.name %>
+<div class="profile jumbotron text-center">
+  <h1 class="display-4">
+    <%= @user.name %>
+  </h1>
+  <% if @user.profile_description %>
+    <hr >
+    <p>
+      <%= @user.profile_description %>
+    </p>
+  <% end %>
+</div>

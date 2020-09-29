@@ -15,7 +15,8 @@
     name: name,
     email: email,
     password: password,
-    password_confirmation: password
+    password_confirmation: password,
+    profile_description: Faker.sentences(number: rand(4..6)).join(' ')
   )
 
   user.skip_confirmation!
