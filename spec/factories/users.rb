@@ -10,7 +10,7 @@ FactoryBot.define do
     password { 'foobar' }
     password_confirmation { 'foobar' }
 
-    profile_description { Faker::Lorem.paragraph }
+    summary { Faker::Lorem.paragraph }
 
     trait :from_discord do
       provider { 'discord' }

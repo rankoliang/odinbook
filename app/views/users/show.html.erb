@@ -2,10 +2,10 @@
   <h1 class="display-4">
     <%= @user.name %>
   </h1>
-  <% if @user.profile_description %>
+  <% if @user.summary %>
     <hr >
     <p>
-      <%= @user.profile_description %>
+      <%= @user.summary %>
     </p>
   <% end %>
 </div>
