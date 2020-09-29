@@ -6,19 +6,22 @@ RSpec.describe 'UserIndex', type: :system do
   end
 
   let(:users) { FactoryBot.create_list(:user, 100) }
-  let(:visiting_url) { users_path }
 
-  it_behaves_like 'a users resource'
+  it_behaves_like 'a users resource' do
+    let(:visiting_url) { users_path }
+  end
 
   context 'when a user is signed in' do
-    it 'renders other users' do
+    before do
       sign_in users.first
+    end
 
-      visit visiting_url
+    it 'renders other users' do
+      visit users_path
 
       expect(page).to have_current_path(users_path)
-      expect(page).to have_button('Add friend', maximum: 10)
-      expect(page).to have_css('.list-group-item', count: 10)
+      expect(main).to have_button('Add friend', maximum: 10)
+      expect(main).to have_css('.list-group-item', count: 10)
     end
   end
 end
