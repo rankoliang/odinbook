@@ -24,10 +24,8 @@ RSpec.describe 'UserLogin', type: :system do
       fill_in 'Password', with: user.password
       click_button 'Log in'
 
-      expect(header).to have_link 'Sign out'
-
-      expect(page).to have_no_content 'Sign in'
-      expect(page).to have_no_content 'Sign up'
+      expect(main).to have_no_content 'Sign in'
+      expect(main).to have_no_content 'Sign up'
     end
 
     it 'can destroy a session' do
@@ -36,8 +34,7 @@ RSpec.describe 'UserLogin', type: :system do
 
       click_link 'Sign out'
 
-      expect(page).to have_css '.alert'
-      expect(page).to have_no_content 'Sign out'
+      expect(main).to have_css '.alert'
     end
   end
 end
