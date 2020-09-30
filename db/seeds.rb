@@ -16,7 +16,7 @@
     email: email,
     password: password,
     password_confirmation: password,
-    summary: Faker.sentences(number: rand(4..6)).join(' ')
+    summary: Faker::Lorem.sentences(number: rand(4..6)).join(' ')
   )
 
   user.skip_confirmation!
