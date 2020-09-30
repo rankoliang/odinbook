@@ -1,14 +1,23 @@
+<h2>Update Your Profile</h2>
+<hr />
+
 <%= form_with model: @user, local: true do |f| %>
-  <%= rounded_avatar @user %>
+  <%= render 'devise/shared/error_messages', resource: @user %>
+  <div class="form-group">
+    <%= f.label :name, 'Display name' %>
+    <%= f.text_field :name, class: 'form-control'%>
+  </div>
 
-  <%= f.label :avatar %>
-  <%= f.file_field :avatar %>
+  <div class="form-group">
+    <%= f.label :summary %>
+    <%= f.text_area :summary, class: 'form-control' %>
+  </div>
 
-  <%= f.label :name, 'Display name' %>
-  <%= f.text_field :name %>
+  <div class="form-group">
+    <%= f.label :avatar, class: 'mb-0' %>
+    <%= avatar_image @user, size: 100, class: 'd-block my-2' %> 
+    <%= f.file_field :avatar, class: 'form-control-file' %>
+  </div>
 
-  <%= f.label :summary %>
-  <%= f.text_area :summary %>
-
-  <%= f.submit 'Update profile' %>
+  <%= f.submit 'Update profile', class: 'btn btn-primary' %>
 <% end %>
