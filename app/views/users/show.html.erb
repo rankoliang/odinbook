@@ -8,4 +8,9 @@
       <%= @user.summary %>
     </p>
   <% end %>
+  <% if @user == current_user %>
+    <%= link_to edit_user_path(@user), class: "text-reset" do %>
+      <%= fa_icon "edit" %>
+    <% end %>
+  <% end %>
 </div>
