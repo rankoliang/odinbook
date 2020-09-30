@@ -1,4 +1,4 @@
-<div class="d-flex align-items-center justify-content-between" >
+<div class="d-flex flex-md-row align-items-center justify-content-between" >
   <h1>Find Friends</h1>
   <%= will_paginate @users %>
 </div>
@@ -6,7 +6,7 @@
   <ul class="list-group">
     <% @users.each do |user| %>
       <li class="d-flex justify-content-between align-items-center list-group-item">
-        <%= user.name %>
+        <%= link_to user.name, user, class: "text-reset", id: user.id %>
         <button class="btn btn-sm btn-outline-primary">
           Add friend
         </button>
