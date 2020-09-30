@@ -7,6 +7,8 @@ RSpec.describe User, type: :model do
   it { is_expected.to validate_presence_of(:name) }
   it { is_expected.to validate_length_of(:summary).is_at_most(200) }
 
+  it { is_expected.to have_one_attached(:avatar) }
+
   describe '.from_omniauth' do
     context 'when a user exists in the database' do
       subject(:user) { FactoryBot.create(:user, :from_discord) }
