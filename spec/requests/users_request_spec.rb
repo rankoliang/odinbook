@@ -79,28 +79,28 @@ RSpec.describe 'Users', type: :request do
     end
 
     context 'when not logged in' do
-      xit 'redirects to new user session path' do
-        patch user, params: user_params
+      it 'redirects to new user session path' do
+        patch user_path(user), params: user_params
 
         expect(response).to redirect_to new_user_session_path
       end
     end
 
     context 'when logged in as self' do
-      xit 'returns http success' do
+      it 'returns http success' do
         sign_in user
 
-        patch user, params: user_params
+        patch user_path(user), params: user_params
 
-        expect(response).to have_http_status(:success)
+        expect(response).to redirect_to user
       end
     end
 
     context 'when logged in as another user' do
-      xit 'returns http unauthorized' do
+      it 'returns http unauthorized' do
         sign_in other_user
 
-        patch user, params: user_params
+        patch user_path(user), params: user_params
 
         expect(response).to have_http_status(:unauthorized)
       end

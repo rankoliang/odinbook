@@ -1,4 +1,6 @@
 <%= form_with model: @user, local: true do |f| %>
+  <%= rounded_avatar @user %>
+
   <%= f.label :avatar %>
   <%= f.file_field :avatar %>
 

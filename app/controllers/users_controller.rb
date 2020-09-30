@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :authorize_current_user, only: %i[edit]
+  before_action :authorize_current_user, only: %i[edit update]
   before_action :find_user, only: %i[show edit update]
 
   def index
@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     if @user.update(profile_params)
       redirect_to @user, notice: 'Successfully updated!'
     else
-      flash.now[:alert] = 'Update failed!'
+      flash.now[:alert] = 'Update failed.'
       render 'edit'
     end
   end

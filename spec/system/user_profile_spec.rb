@@ -26,7 +26,7 @@ RSpec.describe 'UserProfile', type: :system do
         expect(profile).to have_content(user.summary)
       end
 
-      xit 'renders their profile picture' do
+      it 'renders their profile picture' do
         expect(profile).to have_selector 'img'
       end
     end
