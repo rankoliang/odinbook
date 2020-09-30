@@ -2,12 +2,14 @@
   <h1 class="display-4">
     <%= @user.name %>
   </h1>
-  <% if @user.summary %>
-    <hr >
+  <hr >
     <p>
-      <%= @user.summary %>
+      <% if @user.summary.present? %>
+        <%= @user.summary %>
+      <% else %>
+        An Odinbook member.
+      <% end %>
     </p>
-  <% end %>
   <% if @user == current_user %>
     <%= link_to edit_user_path(@user), class: "text-reset" do %>
       <%= fa_icon "edit" %>

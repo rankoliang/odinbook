@@ -24,25 +24,24 @@ RSpec.describe 'edit user profile', type: :system do
 
     context 'when the form is submitted' do
       let(:summary) { Faker::Lorem.paragraph }
-      let(:email) { 'bar@foo.com' }
       let(:name) { 'John Smith' }
 
       before do
         fill_in 'Display name', with: name
-        fill_in 'Email', with: email
         fill_in 'Summary', with: summary
 
         click_button 'Update profile'
       end
 
-      xit 'redirects to the user profile' do
-        expect(page).to have_current_path user
+      it 'redirects to the user profile' do
+        expect(page).to have_current_path user_path(user)
       end
 
-      xit 'updates the user attributes' do
-        expect(user.email).to eq email
-        expect(user.name).to eq name
-        expect(user.summary).to eq summary
+      it 'updates the user attributes' do
+        profile = find('.profile')
+
+        expect(profile).to have_content(name)
+        expect(profile).to have_content(summary)
       end
     end
   end
