@@ -43,6 +43,14 @@ RSpec.describe 'edit user profile', type: :system do
         expect(profile).to have_content(name)
         expect(profile).to have_content(summary)
       end
+
+      context 'When validations do not pass' do
+        let(:summary) { Faker::Lorem.characters(number: 201) }
+
+        it 'shows an error' do
+          expect(main).to have_content 'error'
+        end
+      end
     end
   end
 end
