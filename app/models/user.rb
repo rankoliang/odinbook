@@ -2,7 +2,7 @@ class User < ApplicationRecord
   validates :name, presence: true, length: { maximum: 32 }
   validates :summary, length: { maximum: 200 }
 
-  has_one_attached :avatar
+  has_one_attached :avatar, dependent: :destroy
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable

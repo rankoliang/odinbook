@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :authorize_current_user, only: %i[edit update]
 
   def index
-    @users = User.paginate(page: params[:page], per_page: 10)
+    @users = User.paginate(page: params[:page], per_page: 10).with_attached_avatar
   end
 
   def show; end
