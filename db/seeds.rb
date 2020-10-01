@@ -5,6 +5,24 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require 'open-uri'
+
+def generate_profile_picture
+  image_link = UiFaces.face
+  OpenStruct.new(
+    io: URI.open(image_link),
+    ext: File.extname(image_link)
+  )
+end
+
+def attach_profile_picture(user)
+  picture = generate_profile_picture
+  file_base_tokens = user.name.scan(/\w+/) + ['ui_faces']
+  file_base_name = file_base_tokens.join('_')
+  filename = file_base_name + picture.ext
+
+  user.avatar.attach(io: picture.io, filename: filename)
+end
 
 100.times do
   name = Faker::Name.unique.name
@@ -21,5 +39,5 @@
 
   user.skip_confirmation!
 
-  user.save
+  attach_profile_picture user if user.save
 end

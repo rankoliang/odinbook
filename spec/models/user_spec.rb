@@ -6,7 +6,7 @@ RSpec.describe User, type: :model do
   it { is_expected.to validate_presence_of(:email) }
   it { is_expected.to validate_presence_of(:name) }
   it { is_expected.to validate_length_of(:summary).is_at_most(200) }
-  it { is_expected.to validate_length_of(:name).is_at_most(32) }
+  it { is_expected.to validate_length_of(:name).is_at_most(26) }
 
   it { is_expected.to have_one_attached(:avatar) }
 
