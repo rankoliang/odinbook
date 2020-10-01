@@ -47,6 +47,10 @@ RSpec.describe 'HeaderElements', type: :system do
       expect(header).to have_link href: user_path(user), text: user.name
     end
 
+    it 'has a manage account link' do
+      expect(header).to have_link href: edit_user_registration_path
+    end
+
     it 'does not have a registration link' do
       expect(header).to have_no_link 'Sign up', href: new_user_registration_path
     end
