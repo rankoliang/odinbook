@@ -33,5 +33,13 @@ RSpec.describe 'UserIndex', type: :system do
         expect(users.count).to eq 10
       end
     end
+
+    it 'has links to user profile pages' do
+      within '.list-group' do
+        users = page.all('img')
+
+        expect(users.count).to eq 10
+      end
+    end
   end
 end

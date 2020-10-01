@@ -15,3 +15,9 @@ body {
 ul, ol, dl {
   margin-bottom: 0;
 }
+
+.round-avatar {
+  @extend .bg-light;
+  background-color: white;
+  border-radius: 15%;
+}
