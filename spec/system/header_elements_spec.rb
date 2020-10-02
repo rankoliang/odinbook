@@ -44,7 +44,11 @@ RSpec.describe 'HeaderElements', type: :system do
     end
 
     it 'has a profile link' do
-      expect(header).to have_link href: user_path(user), text: user.name
+      expect(header).to have_link href: user_path(user)
+    end
+
+    it 'has an update profile link' do
+      expect(header).to have_link href: edit_user_path(user)
     end
 
     it 'has a manage account link' do

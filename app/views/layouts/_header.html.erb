@@ -12,25 +12,12 @@
       <% end %>
       </li>
       <li class="nav-item">
-        <%= link_to 'Find Friends', users_path, class: 'nav-link' %>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-        <div class="dropdown-menu" aria-labelledby="dropdown01">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
+        <%= link_to 'Find Friends', users_path, class: "nav-link" %>
       </li>
     </ul>
     <ul class="navbar-nav">
       <% if user_signed_in? %>
-        <li class="nav-item"><%= link_to "Signed in as #{current_user.name}", user_path(current_user), class: 'nav-link active' %></li>
-        <li class="nav-item"><%= link_to "Manage account", edit_user_registration_path , class: 'nav-link' %></li>
-        <li class="nav-item"><%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: 'nav-link' %></li>
+        <%= render "layouts/logged_in_nav" %>
       <% else %>
         <li class="nav-item"><%= link_to 'Sign in', new_user_session_path, class: 'nav-link' %></li>
         <li class="nav-item"><%= link_to 'Sign up', new_user_registration_path, class: 'nav-link' %></li>

@@ -1,0 +1,19 @@
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="notification-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <%= fa_icon 'bell' %>
+  </a>
+  <div class="dropdown-menu" aria-labelledby="notification-dropdown">
+    <a class='dropdown-item'>No notifications</a>
+  </div>
+</li>
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="profile-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <%= "Signed in as #{current_user.name}" %>
+  </a>
+  <div class="dropdown-menu" aria-labelledby="profile-dropdown">
+    <%= link_to "View profile", user_path(current_user), class: 'dropdown-item' %>
+    <%= link_to "Update profile", edit_user_path(current_user), class: 'dropdown-item' %>
+    <%= link_to "Manage account", edit_user_registration_path , class: 'dropdown-item' %>
+    <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: 'dropdown-item' %>
+  </div>
+</li>
