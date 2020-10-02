@@ -1,7 +1,21 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  subject(:user) { FactoryBot.create(:user) }
+  subject(:user) do
+    user = described_class.new(
+      name: 'John Smith',
+      email: 'jsmith@example.com',
+      password: password,
+      password_confirmation: password
+    )
+    user.skip_confirmation!
+    user.save
+
+    user
+  end
+
+  let(:password) { Devise.friendly_token }
+
   it { is_expected.to validate_uniqueness_of(:email).ignoring_case_sensitivity }
   it { is_expected.to validate_presence_of(:email) }
   it { is_expected.to validate_presence_of(:name) }
