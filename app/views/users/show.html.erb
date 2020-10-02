@@ -13,8 +13,19 @@
       <% end %>
     </p>
   <% if @user == current_user %>
-    <%= link_to edit_user_path(@user), class: "text-reset" do %>
-      <%= fa_icon "edit" %>
-    <% end %>
+    <div class="d-flex justify-content-center">
+      <%= link_to edit_user_path(@user), class: "text-reset mx-1 btn btn-secondary" do %>
+        <span class="text-white">
+          <%= fa_icon "edit" %> profile
+        </span>
+      <% end %>
+      <% if @user.avatar.attached? %>
+        <%= link_to destroy_avatar_attached_to_user_path(@user), method: :delete, class: "text-reset mx-1 btn btn-danger" do %>
+          <span class="text-white">
+            <%= fa_icon "trash" %> avatar
+          </span>
+        <% end %>
+      <% end %>
+    </div>
   <% end %>
 </div>

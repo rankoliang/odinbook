@@ -15,7 +15,7 @@ RSpec.describe User, type: :model do
       subject(:user) { FactoryBot.create(:user, :from_discord) }
 
       it 'finds the user' do
-        info = double('Info', email: user.email, name: user.name)
+        info = double('Info', email: user.email, name: user.name, image: nil)
         auth = double('Auth', provider: user.provider, uid: user.uid, info: info)
 
         expect(described_class.from_omniauth(auth)).to eq(user)
@@ -26,7 +26,7 @@ RSpec.describe User, type: :model do
       subject(:user) { FactoryBot.build(:user, :from_discord) }
 
       it 'creates the user' do
-        info = double('Info', email: user.email, name: user.name)
+        info = double('Info', email: user.email, name: user.name, image: nil)
         auth = double('Auth', provider: user.provider, uid: user.uid, info: info)
 
         expect { described_class.from_omniauth(auth) }.to change { described_class.count }.by(1)

@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_user, only: %i[show edit update]
-  before_action :authorize_current_user, only: %i[edit update]
+  before_action :find_user, except: %i[index]
+  before_action :authorize_current_user, except: %i[index show]
 
   def index
     @users = User.paginate(page: params[:page], per_page: 10).with_attached_avatar
@@ -18,6 +18,11 @@ class UsersController < ApplicationController
       flash.now[:alert] = 'Update failed.'
       render 'edit'
     end
+  end
+
+  def destroy_attached_avatar
+    @user.avatar.purge if @user.avatar.attached?
+    redirect_back(fallback_location: user_path(@user))
   end
 
   private

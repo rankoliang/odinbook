@@ -4,6 +4,9 @@ Rails.application.routes.draw do
 
   root 'static_pages#index'
 
-  resources :users, except: %i[new]
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  resources :users, only: %i[index show edit update] do
+    member do
+      delete 'destroy_attached_avatar', to: 'users#destroy_attached_avatar', as: 'destroy_avatar_attached_to'
+    end
+  end
 end

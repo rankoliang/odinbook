@@ -14,9 +14,10 @@
   </div>
 
   <div class="form-group">
-    <%= f.label :avatar, class: 'mb-0' %>
+    Current avatar
     <%= avatar_tag @user, size: 100, class: 'd-block my-2' %> 
-    <%= f.file_field :avatar, class: 'form-control-file' %>
+    <%= f.label :avatar, 'Upload a new avatar', class: 'mb-0' %>
+    <%= f.file_field :avatar, class: 'form-control-file', accept: 'image/*' %>
   </div>
 
   <%= f.submit 'Update profile', class: 'btn btn-primary' %>
