@@ -1,3 +1,5 @@
+require 'open-uri'
+
 class User < ApplicationRecord
   validates :name, presence: true, length: { maximum: 26 }
   validates :summary, length: { maximum: 200 }
@@ -12,10 +14,23 @@ class User < ApplicationRecord
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-      user.email = auth.info.email
+      info = auth.info
+
+      user.email = info.email
       user.password = Devise.friendly_token[0, 20]
-      user.name = auth.info.name
+      user.name = info.name
+      user.attach_avatar_from_url info.image if info.image.present?
+
       user.skip_confirmation!
     end
+  end
+
+  def attach_avatar_from_url(avatar_url)
+    picture = OpenStruct.new(io: URI.open(avatar_url), ext: File.extname(avatar_url))
+    file_base_tokens = name.scan(/\w+/)
+    file_base_name = file_base_tokens.join('_')
+    filename = file_base_name + picture.ext
+
+    avatar.attach(io: picture.io, filename: filename)
   end
 end
