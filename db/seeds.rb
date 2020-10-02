@@ -40,4 +40,7 @@ end
   user.skip_confirmation!
 
   attach_profile_picture user if user.save
+  puts "#{user} created"
+rescue OpenURI::HTTPError
+  puts 'User skipped'
 end

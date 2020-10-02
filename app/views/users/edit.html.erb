@@ -17,7 +17,7 @@
     Current avatar
     <%= avatar_tag @user, size: 100, class: 'd-block my-2' %> 
     <%= f.label :avatar, 'Upload a new avatar', class: 'mb-0' %>
-    <%= f.file_field :avatar, class: 'form-control-file', accept: 'image/*' %>
+    <%= f.file_field :avatar, class: 'form-control-file', accept: 'image/*', direct_upload: true %>
   </div>
 
   <%= f.submit 'Update profile', class: 'btn btn-primary' %>
