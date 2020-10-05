@@ -1,5 +1,6 @@
 require 'rails_helper'
 
+# rubocop:disable Metrics/BlockLength
 RSpec.describe User, type: :model do
   subject(:user) do
     user = described_class.new(
@@ -47,4 +48,83 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  let(:friend) do
+    user = described_class.new(
+      name: 'Jane Doe',
+      email: 'jdoe@example.com',
+      password: password,
+      password_confirmation: password
+    )
+    user.skip_confirmation!
+    user.save
+
+    user
+  end
+
+  let(:requests) { spy('requests') }
+
+  let(:request) { spy('request') }
+
+  before do
+    allow(requests).to receive(:create)
+    allow(request).to receive(:destroy)
+  end
+
+  describe '#request_to_be_friends' do
+    xit 'creates a request' do
+      allow(friend).to receive(:friend_requests).and_return(requests)
+      allow(user).to receive(:sent_requests).and_return(requests)
+
+      user.request_to_be_friends(friend)
+
+      expect(friend.friend_requests).to have_received(:create)
+    end
+  end
+
+  describe '#friend_request_from' do
+    context 'when the request exists' do
+      it 'returns a request' do
+        allow(user).to receive(:friend_requests).and_return(requests)
+        allow(requests).to receive(:find_by).with(requester: friend).and_return(request)
+
+        friend.request_to_be_friends(user)
+
+        expect(user.friend_request_from(friend)).to be request
+      end
+    end
+
+    context 'when the request does not exist' do
+      xit 'returns nil' do
+        allow(user).to receive(:friend_requests).and_return(requests)
+        allow(requests).to receive(:find_by).with(requester: friend).and_return(nil)
+
+        friend.request.to_be_friends(user)
+
+        expect(user.friend_request_from(friend)).to be_nil
+      end
+    end
+  end
+
+  describe '#accept_friend_request_from' do
+    before do
+      allow(user).to receive(:friend_quest_from).with(friend).and_return(request)
+
+      user.request_to_be_friends(friend)
+      friend.accept_friend_request_from(user)
+    end
+
+    xit 'destroys the request' do
+      expect(request).to receive(:destroy)
+    end
+
+    xit 'creates a new friend' do
+      expect(user.friends).to receive(:create).with(friend: friend)
+    end
+
+    xit 'creates a new friend for the friend' do
+      expect(friend.friends).to receive(:create).with(friend: friend)
+    end
+  end
 end
+# rubocop:enable Metrics/BlockLength
