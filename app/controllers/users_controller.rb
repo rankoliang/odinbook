@@ -31,12 +31,6 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :summary, :avatar)
   end
 
-  def authorize_current_user
-    return if @user == current_user
-
-    render file: Rails.root.join('public', '401.html'), status: :unauthorized
-  end
-
   def find_user
     @user = User.find(params[:id])
   end

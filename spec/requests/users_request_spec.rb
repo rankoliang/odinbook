@@ -5,12 +5,8 @@ RSpec.describe 'Users', type: :request do
   let(:other_user) { FactoryBot.create(:user) }
 
   describe 'GET /index' do
-    context 'when not logged in' do
-      it 'redirects to new user session path' do
-        get '/users/index'
-
-        expect(response).to redirect_to new_user_session_path
-      end
+    it_behaves_like 'a users request' do
+      let(:visiting_path) { '/users/index' }
     end
 
     context 'when logged in' do
@@ -24,12 +20,8 @@ RSpec.describe 'Users', type: :request do
   end
 
   describe 'GET /users/:id' do
-    context 'when not logged in' do
-      it 'redirects to new user session path' do
-        get user_path(user)
-
-        expect(response).to redirect_to new_user_session_path
-      end
+    it_behaves_like 'a users request' do
+      let(:visiting_path) { user_path(user) }
     end
 
     context 'when logged in' do
@@ -44,12 +36,8 @@ RSpec.describe 'Users', type: :request do
   end
 
   describe 'GET /users/:id/edit' do
-    context 'when not logged in' do
-      it 'redirects to new user session path' do
-        get edit_user_path(user)
-
-        expect(response).to redirect_to new_user_session_path
-      end
+    it_behaves_like 'a users request' do
+      let(:visiting_path) { edit_user_path(user) }
     end
 
     context 'when logged in as self' do
