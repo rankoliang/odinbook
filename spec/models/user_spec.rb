@@ -62,67 +62,47 @@ RSpec.describe User, type: :model do
     user
   end
 
-  let(:requests) { spy('requests') }
-
-  let(:request) { spy('request') }
-
-  before do
-    allow(requests).to receive(:create)
-    allow(request).to receive(:destroy)
-  end
-
   describe '#request_to_be_friends' do
     it 'creates a request' do
-      allow(user).to receive(:sent_requests).and_return(requests)
-
-      user.request_to_be_friends(friend)
-
-      expect(user.sent_requests).to have_received(:create)
+      expect {user.request_to_be_friends(friend)}
+        .to change { user.sent_requests.count }.by 1
     end
   end
 
   describe '#friend_request_from' do
     context 'when the request exists' do
       it 'returns a request' do
-        allow(user).to receive(:friend_requests).and_return(requests)
-        allow(requests).to receive(:find_by).with(requester: friend).and_return(request)
-
         friend.request_to_be_friends(user)
 
-        expect(user.friend_request_from(friend)).to be request
+        expect(user.friend_request_from(friend)).to be_truthy
       end
     end
 
     context 'when the request does not exist' do
       it 'returns nil' do
-        allow(user).to receive(:friend_requests).and_return(requests)
-        allow(requests).to receive(:find_by).with(requester: friend).and_return(nil)
-
-        friend.request_to_be_friends(user)
-
         expect(user.friend_request_from(friend)).to be_nil
       end
     end
   end
 
   describe '#accept_friend_request_from' do
-    let(:friendships) { spy('friendships') }
-
     before do
-      allow(friendships).to receive(:create)
-      allow(user).to receive(:friend_request_from).with(friend).and_return(request)
-      allow(user).to receive(:friendships).and_return(friendships)
-
       friend.request_to_be_friends(user)
-      user.accept_friend_request_from(friend)
     end
 
     it 'destroys the request' do
-      expect(request).to have_received(:destroy)
+      expect {  user.accept_friend_request_from(friend) }
+        .to change { user.friend_requests.count }.by(-1)
     end
 
-    it 'creates a new friend' do
-      expect(user.friendships).to have_received(:create).with(friend: friend)
+    it 'creates a new friend for the user' do
+      expect { user.accept_friend_request_from(friend) }
+        .to change { user.friends.count }.by 1
+    end
+
+    it 'creates a new friend for the other user' do
+      expect { user.accept_friend_request_from(friend) }
+        .to change { friend.friends.count }.by 1
     end
   end
 end

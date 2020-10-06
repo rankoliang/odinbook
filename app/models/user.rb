@@ -18,8 +18,6 @@ class User < ApplicationRecord
                      through: :friendships,
                      foreign_key: 'friend_id'
 
-  has_many :users, through: :friendships
-
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -60,7 +58,11 @@ class User < ApplicationRecord
     request = friend_request_from(other_user)
     return unless request
 
-    request.destroy
-    friendships.create(friend: other_user)
+    Friendship.transaction do
+      FriendRequest.transaction do
+        request.destroy
+        friendships.create(friend: other_user)
+      end
+    end
   end
 end
