@@ -106,8 +106,12 @@ RSpec.describe User, type: :model do
   end
 
   describe '#accept_friend_request_from' do
+    let(:friendships) { spy('friendships') }
+
     before do
+      allow(friendships).to receive(:create)
       allow(user).to receive(:friend_request_from).with(friend).and_return(request)
+      allow(user).to receive(:friendships).and_return(friendships)
 
       friend.request_to_be_friends(user)
       user.accept_friend_request_from(friend)
@@ -117,12 +121,8 @@ RSpec.describe User, type: :model do
       expect(request).to have_received(:destroy)
     end
 
-    xit 'creates a new friend' do
-      expect(user.friends).to have_received(:create).with(friend: friend)
-    end
-
-    xit 'creates a new friend for the friend' do
-      expect(friend.friends).to have_received(:create).with(friend: friend)
+    it 'creates a new friend' do
+      expect(user.friendships).to have_received(:create).with(friend: friend)
     end
   end
 end

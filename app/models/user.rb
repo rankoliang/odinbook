@@ -5,8 +5,20 @@ class User < ApplicationRecord
   validates :summary, length: { maximum: 200 }
 
   has_one_attached :avatar, dependent: :destroy
-  has_many :friend_requests, class_name: 'FriendRequest', foreign_key: 'requester_id'
-  has_many :sent_requests, class_name: 'FriendRequest', foreign_key: 'requestee_id'
+  has_many :friend_requests, class_name: 'FriendRequest',
+                             foreign_key: 'requestee_id',
+                             dependent: :destroy
+  has_many :sent_requests, class_name: 'FriendRequest',
+                           foreign_key: 'requester_id',
+                           dependent: :destroy
+
+  has_many :friendships, dependent: :destroy
+
+  has_many :friends, class_name: 'User',
+                     through: :friendships,
+                     foreign_key: 'friend_id'
+
+  has_many :users, through: :friendships
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -44,10 +56,11 @@ class User < ApplicationRecord
     friend_requests.find_by(requester: user)
   end
 
-  def accept_friend_request_from(user)
-    request = friend_request_from(user)
+  def accept_friend_request_from(other_user)
+    request = friend_request_from(other_user)
     return unless request
 
     request.destroy
+    friendships.create(friend: other_user)
   end
 end
