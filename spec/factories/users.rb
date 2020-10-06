@@ -6,7 +6,6 @@ FactoryBot.define do
     sequence :name do |n|
       "foobar#{n}"
     end
-    # name { 'foobar' }
     password { 'foobar' }
     password_confirmation { 'foobar' }
 
