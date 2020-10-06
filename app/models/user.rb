@@ -5,6 +5,8 @@ class User < ApplicationRecord
   validates :summary, length: { maximum: 200 }
 
   has_one_attached :avatar, dependent: :destroy
+  has_many :friend_requests, class_name: 'FriendRequest', foreign_key: 'requester_id'
+  has_many :sent_requests, class_name: 'FriendRequest', foreign_key: 'requestee_id'
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -32,5 +34,20 @@ class User < ApplicationRecord
     filename = file_base_name + picture.ext
 
     avatar.attach(io: picture.io, filename: filename)
+  end
+
+  def request_to_be_friends(user)
+    sent_requests.create(requestee: user)
+  end
+
+  def friend_request_from(user)
+    friend_requests.find_by(requester: user)
+  end
+
+  def accept_friend_request_from(user)
+    request = friend_request_from(user)
+    return unless request
+
+    request.destroy
   end
 end

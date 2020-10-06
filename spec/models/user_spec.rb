@@ -72,13 +72,12 @@ RSpec.describe User, type: :model do
   end
 
   describe '#request_to_be_friends' do
-    xit 'creates a request' do
-      allow(friend).to receive(:friend_requests).and_return(requests)
+    it 'creates a request' do
       allow(user).to receive(:sent_requests).and_return(requests)
 
       user.request_to_be_friends(friend)
 
-      expect(friend.friend_requests).to have_received(:create)
+      expect(user.sent_requests).to have_received(:create)
     end
   end
 
@@ -95,11 +94,11 @@ RSpec.describe User, type: :model do
     end
 
     context 'when the request does not exist' do
-      xit 'returns nil' do
+      it 'returns nil' do
         allow(user).to receive(:friend_requests).and_return(requests)
         allow(requests).to receive(:find_by).with(requester: friend).and_return(nil)
 
-        friend.request.to_be_friends(user)
+        friend.request_to_be_friends(user)
 
         expect(user.friend_request_from(friend)).to be_nil
       end
@@ -108,22 +107,22 @@ RSpec.describe User, type: :model do
 
   describe '#accept_friend_request_from' do
     before do
-      allow(user).to receive(:friend_quest_from).with(friend).and_return(request)
+      allow(user).to receive(:friend_request_from).with(friend).and_return(request)
 
-      user.request_to_be_friends(friend)
-      friend.accept_friend_request_from(user)
+      friend.request_to_be_friends(user)
+      user.accept_friend_request_from(friend)
     end
 
-    xit 'destroys the request' do
-      expect(request).to receive(:destroy)
+    it 'destroys the request' do
+      expect(request).to have_received(:destroy)
     end
 
     xit 'creates a new friend' do
-      expect(user.friends).to receive(:create).with(friend: friend)
+      expect(user.friends).to have_received(:create).with(friend: friend)
     end
 
     xit 'creates a new friend for the friend' do
-      expect(friend.friends).to receive(:create).with(friend: friend)
+      expect(friend.friends).to have_received(:create).with(friend: friend)
     end
   end
 end
