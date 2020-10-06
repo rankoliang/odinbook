@@ -10,4 +10,13 @@ module ApplicationHelper
                      end
     "alert-#{bootstrap_type}"
   end
+
+  def activatable_nav_li(page, custom_classes: [], &block)
+    classes = ['nav-items'] + custom_classes
+    content = capture(&block)
+
+    classes.push('active') if content_for(:page) == page
+
+    content_tag :li, content, class: classes.join(' ')
+  end
 end
