@@ -12,6 +12,9 @@ class User < ApplicationRecord
                            foreign_key: 'requester_id',
                            dependent: :destroy
 
+  has_many :requestees, through: :sent_requests
+  has_many :requesters, through: :friend_requests
+
   has_many :friendships, dependent: :destroy
 
   has_many :friends, class_name: 'User',

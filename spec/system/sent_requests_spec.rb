@@ -19,7 +19,7 @@ RSpec.describe 'SentRequests', type: :system do
       visit users_url
       click_on 'Add friend', id: other_user.id
       within header do
-        click_on 'Sent requests'
+        click_on 'Sent Requests'
       end
 
       expect(main).to have_content other_user.name
