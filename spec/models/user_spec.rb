@@ -105,5 +105,16 @@ RSpec.describe User, type: :model do
         .to change { friend.friends.count }.by 1
     end
   end
+
+  describe '#cancel_request' do
+    before do
+      user.request_to_be_friends(friend)
+    end
+
+    it 'destroys the request' do
+      expect { user.cancel_request(friend) }
+        .to change { user.requestees.count }.by(-1)
+    end
+  end
 end
 # rubocop:enable Metrics/BlockLength

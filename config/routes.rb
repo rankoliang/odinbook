@@ -11,5 +11,5 @@ Rails.application.routes.draw do
 
   get 'sent_requests', to: 'friend_requests#sent_requests'
   post 'add_friend', to: 'friend_requests#create'
-  post 'remove_friend', to: 'friend_requests#destroy'
+  post 'cancel_request', to: 'friend_requests#destroy'
 end

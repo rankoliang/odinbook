@@ -4,7 +4,9 @@ class UsersController < ApplicationController
   before_action :authorize_current_user, except: %i[index show]
 
   def index
-    @users = User.paginate(page: params[:page], per_page: 10).with_attached_avatar
+    @users = current_user.requestable_friends
+                         .paginate(page: params[:page], per_page: 10)
+                         .with_attached_avatar
   end
 
   def show; end

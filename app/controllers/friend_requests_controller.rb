@@ -12,7 +12,16 @@ class FriendRequestsController < ApplicationController
     redirect_back fallback_location: root_path
   end
 
-  def destroy; end
+  def destroy
+    friend_request = current_user.friend_request_to(@friend)
+
+    if friend_request&.destroy
+      flash[:notice] = "Cancelled friend request to #{@friend.name}"
+    else
+      flash[:alert] = 'Could not cancel your friend request'
+    end
+    redirect_back fallback_location: root_path
+  end
 
   def sent_requests
     @users = current_user.requestees.paginate(page: params[:page], per_page: 10).with_attached_avatar

@@ -21,6 +21,8 @@ class User < ApplicationRecord
                      through: :friendships,
                      foreign_key: 'friend_id'
 
+  default_scope { order(:name) }
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -57,6 +59,10 @@ class User < ApplicationRecord
     friend_requests.find_by(requester: user)
   end
 
+  def friend_request_to(user)
+    sent_requests.find_by(requestee: user)
+  end
+
   def accept_friend_request_from(other_user)
     request = friend_request_from(other_user)
     return unless request
@@ -67,5 +73,14 @@ class User < ApplicationRecord
         friendships.create(friend: other_user)
       end
     end
+  end
+
+  def cancel_request(requestee)
+    friend_request_to(requestee)&.destroy
+  end
+
+  def requestable_friends
+    User.where('id NOT IN (:friends)', friends: friends.select(:id))
+        .where('id NOT IN (:requestees)', requestees: requestees.select(:id))
   end
 end
