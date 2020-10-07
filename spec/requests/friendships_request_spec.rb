@@ -14,12 +14,12 @@ RSpec.describe 'Friendships', type: :request do
     end
 
     context 'when logged in' do
-      it 'returns http success' do
+      it 'redirects to the user index' do
         sign_in user
 
         post user_add_friend_path(user, other_user)
 
-        expect(response).to have_http_status(:success)
+        expect(response).to have_http_status(:redirect)
       end
     end
 

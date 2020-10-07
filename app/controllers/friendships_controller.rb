@@ -4,7 +4,10 @@ class FriendshipsController < ApplicationController
   before_action :find_friend
   before_action :authorize_current_user
 
-  def create; end
+  def create
+    redirect_back fallback_location: root_path,
+                  notice: "A friend request to #{@friend.name} has been sent."
+  end
 
   def destroy; end
 
