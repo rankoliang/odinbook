@@ -6,13 +6,13 @@ RSpec.describe 'Users', type: :request do
 
   describe 'GET /index' do
     it_behaves_like 'a users request' do
-      let(:visiting_path) { '/users/index' }
+      let(:visiting_path) { users_path }
     end
 
     context 'when logged in' do
       it 'returns http success' do
         sign_in user
-        get '/users/index'
+        get users_path
 
         expect(response).to have_http_status(:success)
       end

@@ -1,4 +1,4 @@
-class FriendshipsController < ApplicationController
+class FriendRequestsController < ApplicationController
   before_action :authenticate_user!
   before_action :find_friend
 
@@ -12,6 +12,6 @@ class FriendshipsController < ApplicationController
   private
 
   def find_friend
-    @friend = User.find(params[:id])
+    @friend = User.find(params[:requestee_id])
   end
 end

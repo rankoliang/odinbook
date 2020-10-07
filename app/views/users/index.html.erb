@@ -12,7 +12,7 @@
           <%= round_avatar_tag user, size: 40, class: 'round-avatar mr-2' %>
           <%= user.name %>
         <% end %>
-        <%= button_to 'Add friend', user_add_friend_path(current_user, user), class: 'btn btn-sm btn-outline-primary', id: user.id %>
+        <%= button_to 'Add friend', add_friend_path, params: { requestee_id: user.id }, class: 'btn btn-sm btn-outline-primary', id: user.id %>
       </li>
     <% end %>
   </ul>
