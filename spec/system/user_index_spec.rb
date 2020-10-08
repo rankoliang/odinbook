@@ -5,7 +5,7 @@ RSpec.describe 'UserIndex', type: :system do
     driven_by(:rack_test)
   end
 
-  let(:users) { FactoryBot.create_list(:user, 100) }
+  include_context 'users'
 
   it_behaves_like 'a users resource' do
     let(:visiting_url) { users_path }
@@ -13,7 +13,7 @@ RSpec.describe 'UserIndex', type: :system do
 
   context 'when a user is signed in' do
     before do
-      sign_in users.first
+      sign_in user
       visit users_path
     end
 
@@ -44,9 +44,7 @@ RSpec.describe 'UserIndex', type: :system do
 
     context 'when a user adds another user' do
       it 'sends a friend request' do
-        user = users.first
-
-        click_on 'Add friend', id: users.first.id
+        click_on 'Add friend', id: user.id
 
         expect(main).to have_content("A friend request to #{user.name} has been sent.")
       end

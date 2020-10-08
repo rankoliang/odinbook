@@ -5,10 +5,7 @@ RSpec.describe 'SentRequests', type: :system do
     driven_by(:rack_test)
   end
 
-  subject(:user) { users.first }
-
-  let(:users) { FactoryBot.create_list(:user, 10) }
-  let(:other_user) { users[1] }
+  include_context 'users'
 
   describe 'when logged in' do
     before do

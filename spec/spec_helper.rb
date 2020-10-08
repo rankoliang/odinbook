@@ -15,6 +15,7 @@
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
 require 'support/shared_examples'
+require 'support/shared_contexts'
 require 'support/helpers'
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate

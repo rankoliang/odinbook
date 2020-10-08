@@ -364,7 +364,7 @@ DEPENDENCIES
   rails (~> 6.0.3, >= 6.0.3.3)
   rspec-rails (~> 4.0.1)
   sass-rails (>= 6)
-  selenium-webdriver
+  selenium-webdriver (~> 3.142.7)
   shoulda-matchers (~> 4.0)
   spring
   spring-watcher-listen (~> 2.0.0)
@@ -372,7 +372,7 @@ DEPENDENCIES
   tzinfo-data
   ui_faces (~> 0.1.4)
   web-console (>= 3.3.0)
-  webdrivers
+  webdrivers (~> 4.4.1)
   webpacker (~> 4.0)
   will_paginate (~> 3.3.0)
   will_paginate-bootstrap4 (~> 0.2.2)

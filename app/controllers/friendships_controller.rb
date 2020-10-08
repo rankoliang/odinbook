@@ -1,17 +1,14 @@
 class FriendshipsController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_friend
+  before_action :find_user
 
-  def create
-    redirect_back fallback_location: root_path,
-                  notice: "A friend request to #{@friend.name} has been sent."
+  def index
+    @users = @user.friends.paginate(page: params[:page], per_page: 10)
   end
-
-  def destroy; end
 
   private
 
-  def find_friend
-    @friend = User.find(params[:id])
+  def find_user
+    @user = User.find(params[:user_id])
   end
 end

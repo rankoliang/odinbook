@@ -21,7 +21,7 @@ class User < ApplicationRecord
                      through: :friendships,
                      foreign_key: 'friend_id'
 
-  default_scope { order(:name) }
+  default_scope { order(:name).with_attached_avatar }
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -82,5 +82,9 @@ class User < ApplicationRecord
   def requestable_friends
     User.where('id NOT IN (:friends)', friends: friends.select(:id))
         .where('id NOT IN (:requestees)', requestees: requestees.select(:id))
+  end
+
+  def add_friend(friend)
+    friendships.create(friend: friend)
   end
 end

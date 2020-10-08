@@ -116,5 +116,12 @@ RSpec.describe User, type: :model do
         .to change { user.requestees.count }.by(-1)
     end
   end
+
+  describe '#add_friend' do
+    it 'adds a new friend' do
+      expect { user.add_friend(friend) }
+        .to change { user.friends.count }.by 1
+    end
+  end
 end
 # rubocop:enable Metrics/BlockLength
