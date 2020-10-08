@@ -1,1 +1,9 @@
-<%= button_to 'Remove friend', user_remove_friend_path(current_user, user), method: :delete, params: { friend_id: user.id }, class: 'btn btn-sm btn-outline-danger', id: user.id %>
+<%= 
+  button_to 'Remove friend',
+  user_remove_friend_path(current_user, user),
+  method: :delete,
+  params: { friend_id: user.id },
+  data: { confirm: 'Are you sure?' },
+  class: 'btn btn-sm btn-outline-danger',
+  id: user.id
+  %>

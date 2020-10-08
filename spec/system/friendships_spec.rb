@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe 'Friendships', type: :system do
+RSpec.describe 'Friendships', js: true, type: :system do
   before do
-    driven_by :rack_test
+    driven_by :selenium, using: :chrome
   end
 
   include_context 'users'
@@ -15,14 +15,14 @@ RSpec.describe 'Friendships', type: :system do
   end
 
   it_behaves_like 'a users resource' do
-    let(:visiting_url) { user_friends_url(user) }
+    let(:visiting_url) { user_friends_path(user) }
   end
 
   context 'when visiting the friends page' do
     include_context 'with friends added'
 
     before do
-      visit user_friends_url(user)
+      visit user_friends_path(user)
     end
     it 'shows friends' do
       expect(main).to have_content other_user.name
@@ -34,7 +34,9 @@ RSpec.describe 'Friendships', type: :system do
 
     context 'when the remove friend button is clicked' do
       before do
-        click_button 'Remove friend', id: other_user.id
+        accept_confirm do
+          click_button 'Remove friend', id: other_user.id
+        end
       end
 
       it 'renders a flash message' do
@@ -42,7 +44,7 @@ RSpec.describe 'Friendships', type: :system do
       end
 
       it 'removes the friend' do
-        visit user_friends_url(user)
+        visit user_friends_path(user)
 
         expect(main).to have_no_content other_user.name
       end
@@ -53,11 +55,11 @@ RSpec.describe 'Friendships', type: :system do
     include_context 'with friends added'
 
     before do
-      visit user_friends_url(other_user)
+      visit user_friends_path(other_user)
     end
 
     it 'hides the remove friend button' do
-      expect(main).to have_no_button'Remove friend'
+      expect(main).to have_no_button 'Remove friend'
     end
   end
 end
