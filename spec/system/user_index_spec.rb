@@ -44,9 +44,9 @@ RSpec.describe 'UserIndex', type: :system do
 
     context 'when a user adds another user' do
       it 'sends a friend request' do
-        click_on 'Add friend', id: user.id
+        click_on 'Add friend', id: other_user.id
 
-        expect(main).to have_content("A friend request to #{user.name} has been sent.")
+        expect(main).to have_content("A friend request to #{other_user.name} has been sent.")
       end
     end
   end

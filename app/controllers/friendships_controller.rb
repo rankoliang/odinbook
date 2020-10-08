@@ -2,7 +2,7 @@ class FriendshipsController < ApplicationController
   before_action :authenticate_user!
   before_action :find_user
   before_action :find_friend, only: %i[destroy]
-  before_action :authorize_current_user
+  before_action :authorize_current_user, only: %i[destroy]
 
   def index
     @users = friends(@user)
@@ -13,9 +13,9 @@ class FriendshipsController < ApplicationController
       flash[:notice] = "#{@friend.name} successfully removed"
       redirect_back fallback_location: user_friends_path(current_user)
     else
-      flash[:alert] = 'Failed to remove user from your friends list'
       @users = friends(@user)
-      render 'index', status: :not_modified
+      flash.now[:alert] = 'Failed to remove user from your friends list'
+      render 'index'
     end
   end
 

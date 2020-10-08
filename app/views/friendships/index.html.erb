@@ -1,4 +1,4 @@
 <% provide :page, 'Friends' %>
 <% provide :button_partial_path, 'remove_friend' %>
 
-<%= render 'shared/user_list' %>
+<%= render 'shared/user_list', { show_button: @user == current_user } %>

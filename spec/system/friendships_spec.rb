@@ -11,7 +11,6 @@ RSpec.describe 'Friendships', type: :system do
     before do
       sign_in user
       user.add_friend(other_user)
-      visit user_friends_url(user)
     end
   end
 
@@ -22,6 +21,9 @@ RSpec.describe 'Friendships', type: :system do
   context 'when visiting the friends page' do
     include_context 'with friends added'
 
+    before do
+      visit user_friends_url(user)
+    end
     it 'shows friends' do
       expect(main).to have_content other_user.name
     end
@@ -44,6 +46,18 @@ RSpec.describe 'Friendships', type: :system do
 
         expect(main).to have_no_content other_user.name
       end
+    end
+  end
+
+  context "when visiting another user's friend page" do
+    include_context 'with friends added'
+
+    before do
+      visit user_friends_url(other_user)
+    end
+
+    it 'hides the remove friend button' do
+      expect(main).to have_no_button'Remove friend'
     end
   end
 end

@@ -29,6 +29,10 @@ RSpec.describe 'UserProfile', type: :system do
       it 'renders their profile picture' do
         expect(profile).to have_selector 'img'
       end
+
+      it 'renders the number of friends' do
+        expect(profile).to have_content pluralize(user.friends.count, 'friend') 
+      end
     end
   end
 end

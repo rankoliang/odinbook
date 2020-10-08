@@ -14,6 +14,11 @@
         An Odinbook member.
       <% end %>
     </p>
+    <%= link_to user_friends_path(@user), class: "text-reset m-2 btn btn-secondary" do %>
+      <span class="text-white">
+        <%= pluralize(@user.friends.count, 'friend') %>
+      </span>
+    <% end %>
   <% if @user == current_user %>
     <div class="d-flex justify-content-center">
       <%= link_to edit_user_path(@user), class: "text-reset mx-1 btn btn-secondary" do %>

@@ -141,6 +141,10 @@ RSpec.describe User, type: :model do
           .not_to change { user.friends.count } ||
                   change { friend.friends.count }
       end
+
+      it 'returns nil' do
+        expect(user.remove_friend(friend)).to be_nil
+      end
     end
   end
 end

@@ -23,7 +23,7 @@ RSpec.describe 'Friendships', type: :request do
       end
     end
   end
-  
+
   describe 'DELETE friendships#destroy' do
     context 'when not logged in' do
       it 'redirects to new user session path' do
@@ -34,26 +34,13 @@ RSpec.describe 'Friendships', type: :request do
     end
 
     context 'when logged in' do
-      context 'when delete is successful' do
-        it 'redirects back' do
-          sign_in user
-          user.add_friend(other_user)
+      it 'redirects back' do
+        sign_in user
+        user.add_friend(other_user)
 
-          delete user_remove_friend_path(user, other_user)
+        delete user_remove_friend_path(user, other_user)
 
-          expect(response).to have_http_status(:redirect)
-        end
-      end
-
-      context 'when delete is unsuccessful' do
-        it 'return http not modified' do
-          sign_in user
-
-          delete user_remove_friend_path(user, other_user)
-
-          expect(response).to have_http_status(:not_modified)
-        end
-        
+        expect(response).to have_http_status(:redirect)
       end
     end
 

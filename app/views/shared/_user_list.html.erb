@@ -16,7 +16,9 @@
           <%= round_avatar_tag user, size: 40, class: 'round-avatar mr-2' %>
           <%= user.name %>
         <% end %>
-        <%= render yield(:button_partial_path), user: user %>
+        <% if local_assigns.fetch :show_button, true %>
+            <%= render yield(:button_partial_path), user: user %>
+        <% end %>
       </li>
     <% end %>
   </ul>
