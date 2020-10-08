@@ -120,7 +120,27 @@ RSpec.describe User, type: :model do
   describe '#add_friend' do
     it 'adds a new friend' do
       expect { user.add_friend(friend) }
-        .to change { user.friends.count }.by 1
+        .to change { user.friends.count }.by(1) &
+            change { friend.friends.count }.by(1)
+    end
+  end
+  describe '#remove_friend' do
+    context 'the friend exists' do
+      it 'removes a friend' do
+        user.add_friend(friend)
+
+        expect { user.remove_friend(friend) }
+          .to change { user.friends.count }.by(-1) &
+              change { friend.friends.count }.by(-1)
+      end
+    end
+
+    context 'the friend does not exist' do
+      it 'does not remove a friend' do
+        expect { user.remove_friend(friend) }
+          .not_to change { user.friends.count } ||
+                  change { friend.friends.count }
+      end
     end
   end
 end

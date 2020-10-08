@@ -87,4 +87,9 @@ class User < ApplicationRecord
   def add_friend(friend)
     friendships.create(friend: friend)
   end
+
+  def remove_friend(friend)
+    friendship = friendships.find_by(friend: friend)
+    friendship&.destroy
+  end
 end
