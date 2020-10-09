@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Notifications', js: true, type: :system do
   before do
-    driven_by :selenium_headless
+    driven_by :selenium
 
     sign_in user
     visit root_path
@@ -42,6 +42,9 @@ RSpec.describe 'Notifications', js: true, type: :system do
       expect(page).to have_content other_user.name
 
       toggle_notifications
+
+      expect(header).to have_no_content other_user.name
+
       within header.find_by_id(users[2].id.to_s) do
         click_on 'Reject'
       end

@@ -24,7 +24,7 @@ def attach_profile_picture(user)
   user.avatar.attach(io: picture.io, filename: filename)
 end
 
-100.times do
+30.times do
   name = Faker::Name.unique.name
   email = Faker::Internet.email(name: name, separators: '_')
   password = Devise.friendly_token.first(16)

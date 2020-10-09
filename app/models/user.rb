@@ -82,6 +82,7 @@ class User < ApplicationRecord
   def requestable_friends
     User.where('id NOT IN (:friends)', friends: friends.select(:id))
         .where('id NOT IN (:requestees)', requestees: requestees.select(:id))
+        .where('id NOT IN (:requesters)', requesters: requesters.select(:id))
         .where('id != ?', id)
   end
 

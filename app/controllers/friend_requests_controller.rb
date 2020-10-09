@@ -13,12 +13,12 @@ class FriendRequestsController < ApplicationController
   end
 
   def destroy
-    friend_request = current_user.friend_request_to(@friend)
+    friend_request = FriendRequest.find_by(requester: params[:requester_id], requestee: params[:requestee_id])
 
     if friend_request&.destroy
-      flash[:notice] = "Cancelled friend request to #{@friend.name}"
+      flash[:notice] = 'Friend request removed'
     else
-      flash[:alert] = 'Could not cancel your friend request'
+      flash[:alert] = 'Could not delete friend request'
     end
     redirect_back fallback_location: root_path
   end

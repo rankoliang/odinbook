@@ -1,1 +1,1 @@
-<%= button_to 'Cancel request', cancel_request_path, params: { requestee_id: user.id }, class: 'btn btn-sm btn-outline-danger', id: user.id %>
+<%= button_to 'Cancel request', friend_request_path(current_user, user), method: :delete, params: { requestee_id: user.id }, class: 'btn btn-sm btn-outline-danger', id: user.id %>

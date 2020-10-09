@@ -10,7 +10,7 @@ class FriendshipsController < ApplicationController
 
   def create
     @friend = User.find(params[:friend_id])
-    if current_user.add_friend(@friend)
+    if current_user.accept_friend_request_from(@friend)
       flash[:notice] = "#{@friend.name} added!"
     else
       flash[:alert] = 'Failed to add friend.'

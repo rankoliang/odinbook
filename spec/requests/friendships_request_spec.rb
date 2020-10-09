@@ -53,4 +53,22 @@ RSpec.describe 'Friendships', type: :request do
       end
     end
   end
+
+  describe 'POST friends#create' do
+    context 'when not logged in' do
+      it 'redirects to new user session path' do
+        post friends_path, params: { friend_id: other_user.id }
+
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
+    context 'when logged in' do
+      it 'redirects' do
+        post friends_path, params: { friend_id: other_user.id }
+
+        expect(response).to have_http_status(:redirect)
+      end
+    end
+  end
 end

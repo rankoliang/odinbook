@@ -47,7 +47,7 @@ RSpec.describe 'FriendRequests', type: :request do
   describe 'DELETE friendships#destroy' do
     context 'when not logged in' do
       it 'redirects to new user session path' do
-        post cancel_request_path, params: { requestee_id: other_user.id }
+        delete friend_request_path(user, other_user)
 
         expect(response).to redirect_to new_user_session_path
       end
@@ -57,7 +57,7 @@ RSpec.describe 'FriendRequests', type: :request do
       it 'redirects the user' do
         sign_in user
 
-        post cancel_request_path, params: { requestee_id: other_user.id }
+        delete friend_request_path(user, other_user)
 
         expect(response).to have_http_status(:redirect)
       end
