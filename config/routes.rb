@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     delete 'remove_friend/:id', to: 'friendships#destroy', as: 'remove_friend'
   end
 
+  post 'friends', to: 'friendships#create'
   get 'sent_requests', to: 'friend_requests#sent_requests'
   post 'add_friend', to: 'friend_requests#create'
   post 'cancel_request', to: 'friend_requests#destroy'

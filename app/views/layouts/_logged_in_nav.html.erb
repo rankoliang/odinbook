@@ -3,6 +3,13 @@
     <%= fa_icon 'bell' %>
   </a>
   <div class="dropdown-menu" aria-labelledby="notification-dropdown">
+    <% @requesters.each do |requester| %>
+      <div class="dropdown-item">
+        <%= link_to requester.name, requester %>
+        <%= button_to 'Accept', friends_path, params: { friend_id: requester.id } %>
+        <%= button_to 'Reject', friends_path(requester), method: :delete %>
+      </div>
+    <% end %>
     <a class='dropdown-item'>No notifications</a>
   </div>
 </li>

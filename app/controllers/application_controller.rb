@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :set_requesters, if: :user_signed_in?
 
   def after_sign_in_path_for(resource)
     stored_location_for(resource) || resource
@@ -21,5 +22,9 @@ class ApplicationController < ActionController::Base
     return if @user == current_user
 
     render file: Rails.root.join('public', '401.html'), status: :unauthorized
+  end
+
+  def set_requesters
+    @requesters = current_user.requesters
   end
 end
