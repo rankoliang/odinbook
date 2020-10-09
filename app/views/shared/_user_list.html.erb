@@ -4,8 +4,8 @@
     <p><%= yield(:empty_page_message) %></p>
   </div>
 <% else %>
-<div class="d-flex justify-content-center align-items-lg-center justify-content-lg-between flex-wrap flex-lg-nowrap pb-2 pb-lg-0" >
-  <h1><%= yield(:page) %></h1>
+<div class="d-flex justify-content-center align-items-center justify-content-lg-between flex-wrap flex-lg-nowrap pb-2 pb-lg-0" >
+  <h1 class="my-0 mx-2"><%= yield(:page) %></h1>
   <%= will_paginate @users %>
 </div>
 <div>

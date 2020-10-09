@@ -65,9 +65,9 @@ RSpec.describe 'UserProfile', type: :system do
       context 'when the cancel request button is clicked' do
         it 'cancels the request' do
           user.request_to_be_friends(other_user)
-          click_button 'Send request'
+          click_button 'Cancel request'
 
-          expect(profile).to have_button 'Cancel Request'
+          expect(profile).to have_button 'Send request'
         end
       end
 

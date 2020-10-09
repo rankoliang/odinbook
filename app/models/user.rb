@@ -94,4 +94,17 @@ class User < ApplicationRecord
     friendship = friendships.find_by(friend: friend)
     friendship&.destroy
   end
+
+  # returns the relationship of the other user to self
+  def relationship(user)
+    if self == user
+      :self
+    elsif sent_requests.find_by(requestee_id: user.id)
+      :requestee
+    elsif friend_requests.find_by(requester_id: user.id)
+      :requester
+    elsif friendships.find_by(friend_id: user.id)
+      :friend
+    end
+  end
 end

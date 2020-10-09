@@ -49,7 +49,7 @@ RSpec.describe User, type: :model do
     end
   end
 
-  let(:friend) do
+  let(:other_user) do
     user = described_class.new(
       name: 'Jane Doe',
       email: 'jdoe@example.com',
@@ -64,7 +64,7 @@ RSpec.describe User, type: :model do
 
   describe '#request_to_be_friends' do
     it 'creates a request' do
-      expect {user.request_to_be_friends(friend)}
+      expect { user.request_to_be_friends(other_user) }
         .to change { user.sent_requests.count }.by 1
     end
   end
@@ -72,78 +72,119 @@ RSpec.describe User, type: :model do
   describe '#friend_request_from' do
     context 'when the request exists' do
       it 'returns a request' do
-        friend.request_to_be_friends(user)
+        other_user.request_to_be_friends(user)
 
-        expect(user.friend_request_from(friend)).to be_truthy
+        expect(user.friend_request_from(other_user)).to be_truthy
       end
     end
 
     context 'when the request does not exist' do
       it 'returns nil' do
-        expect(user.friend_request_from(friend)).to be_nil
+        expect(user.friend_request_from(other_user)).to be_nil
       end
     end
   end
 
   describe '#accept_friend_request_from' do
     before do
-      friend.request_to_be_friends(user)
+      other_user.request_to_be_friends(user)
     end
 
     it 'destroys the request' do
-      expect {  user.accept_friend_request_from(friend) }
+      expect { user.accept_friend_request_from(other_user) }
         .to change { user.friend_requests.count }.by(-1)
     end
 
     it 'creates a new friend for the user' do
-      expect { user.accept_friend_request_from(friend) }
+      expect { user.accept_friend_request_from(other_user) }
         .to change { user.friends.count }.by 1
     end
 
     it 'creates a new friend for the other user' do
-      expect { user.accept_friend_request_from(friend) }
-        .to change { friend.friends.count }.by 1
+      expect { user.accept_friend_request_from(other_user) }
+        .to change { other_user.friends.count }.by 1
     end
   end
 
   describe '#cancel_request' do
     before do
-      user.request_to_be_friends(friend)
+      user.request_to_be_friends(other_user)
     end
 
     it 'destroys the request' do
-      expect { user.cancel_request(friend) }
+      expect { user.cancel_request(other_user) }
         .to change { user.requestees.count }.by(-1)
     end
   end
 
   describe '#add_friend' do
     it 'adds a new friend' do
-      expect { user.add_friend(friend) }
+      expect { user.add_friend(other_user) }
         .to change { user.friends.count }.by(1) &
-            change { friend.friends.count }.by(1)
+            change { other_user.friends.count }.by(1)
     end
   end
+
   describe '#remove_friend' do
     context 'the friend exists' do
       it 'removes a friend' do
-        user.add_friend(friend)
+        user.add_friend(other_user)
 
-        expect { user.remove_friend(friend) }
+        expect { user.remove_friend(other_user) }
           .to change { user.friends.count }.by(-1) &
-              change { friend.friends.count }.by(-1)
+              change { other_user.friends.count }.by(-1)
       end
     end
 
     context 'the friend does not exist' do
       it 'does not remove a friend' do
-        expect { user.remove_friend(friend) }
+        expect { user.remove_friend(other_user) }
           .not_to change { user.friends.count } ||
-                  change { friend.friends.count }
+                  change { other_user.friends.count }
       end
 
       it 'returns nil' do
-        expect(user.remove_friend(friend)).to be_nil
+        expect(user.remove_friend(other_user)).to be_nil
+      end
+    end
+  end
+
+  describe '#relationship' do
+    subject(:relationship) { user.relationship(other_user) }
+
+    context 'when there is no relationship' do
+      it 'returns nil' do
+        expect(relationship).to be_nil
+      end
+    end
+
+    context 'when the user is self' do
+      it 'returns self' do
+        expect(user.relationship(user)).to eq :self
+      end
+    end
+
+    context 'when a request has been made' do
+      it 'returns requestee' do
+        user.request_to_be_friends(other_user)
+
+        expect(relationship).to eq :requestee
+      end
+    end
+
+    context 'when there is a pending request' do
+      it 'returns requester' do
+        other_user.request_to_be_friends(user)
+
+        expect(relationship).to eq :requester
+      end
+    end
+
+    context 'when the other user is a friend' do
+      it 'returns friend' do
+        user.add_friend(other_user)
+
+        expect(relationship).to eq :friend
       end
     end
   end
