@@ -9,12 +9,12 @@ RSpec.describe 'Notifications', js: true, type: :system do
   end
 
   include_context 'users'
-
   context 'when a user has no pending requests' do
     it 'has no notifications' do
       toggle_notifications
 
       expect(header).to have_content 'No notifications'
+      expect(header).to have_no_css '.text-warning'
     end
   end
 
@@ -27,6 +27,7 @@ RSpec.describe 'Notifications', js: true, type: :system do
     end
 
     it 'can interact with the request' do
+      expect(header).to have_css '.text-warning'
       expect(header).to have_link other_user.name, href: user_path(other_user)
       expect(header).to have_button 'Accept'
       expect(header).to have_button 'Reject'
