@@ -18,7 +18,7 @@
       <a class='dropdown-item'>No notifications</a>
     <% else %>
       <% @requesters.each do |requester| %>
-        <div class="dropdown-item px-3">
+        <div class="dropdown-item px-3", id="<%= requester.id %>">
           <%= link_to requester, class: 'd-flex align-items-center justify-content-between text-decoration-none text-dark' do %>
             <span class='mx-1'>
               <%= avatar_tag(requester, size: 50, class:'round-avatar') %>

@@ -1,11 +1,22 @@
 class FriendshipsController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_user
+  before_action :find_user, only: %i[index destroy]
   before_action :find_friend, only: %i[destroy]
   before_action :authorize_current_user, only: %i[destroy]
 
   def index
     @users = friends(@user)
+  end
+
+  def create
+    @friend = User.find(params[:friend_id])
+    if current_user.add_friend(@friend)
+      flash[:notice] = "#{@friend.name} added!"
+    else
+      flash[:alert] = 'Failed to add friend.'
+    end
+
+    redirect_back fallback_location: root_path
   end
 
   def destroy
