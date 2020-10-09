@@ -9,7 +9,9 @@ class UsersController < ApplicationController
                          .with_attached_avatar
   end
 
-  def show; end
+  def show
+    @relationship = current_user.relationship(@user)
+  end
 
   def edit; end
 
