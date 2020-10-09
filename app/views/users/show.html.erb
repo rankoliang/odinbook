@@ -14,11 +14,26 @@
         An Odinbook member.
       <% end %>
     </p>
-    <%= link_to user_friends_path(@user), class: "text-reset m-2 btn btn-secondary" do %>
-      <span class="text-white">
-        <%= pluralize(@user.friends.count, 'friend') %>
-      </span>
-    <% end %>
+    <div class="d-flex justify-content-center">
+      <%= link_to user_friends_path(@user), class: "text-reset m-1 btn btn-secondary" do %>
+        <span class="text-white">
+          <%= pluralize(@user.friends.count, 'friend') %>
+        </span>
+      <% end %>
+      <% if current_user.requestable_friends.find_by(id: @user.id) %>
+        <%= button_to add_friend_path, params: { requestee_id: @user.id }, class: "text-reset m-1 btn btn-primary" do %>
+          <span class="text-white">
+            Add friend
+          </span>
+        <% end %>
+      <% elsif @user != current_user %>
+        <%= button_to user_remove_friend_path(current_user, @user), method: :delete, class: "text-reset m-1 btn btn-danger" do %>
+          <span class="text-white">
+            Remove friend
+          </span>
+        <% end %>
+      <% end %>
+    </div>
   <% if @user == current_user %>
     <div class="d-flex justify-content-center">
       <%= link_to edit_user_path(@user), class: "text-reset mx-1 btn btn-secondary" do %>
