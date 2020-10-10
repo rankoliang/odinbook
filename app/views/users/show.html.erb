@@ -20,32 +20,7 @@
           <%= pluralize(@user.friends.count, 'friend') %>
         </span>
       <% end %>
-      <% case @relationship %>
-      <% when :requestee %>
-        <%= button_to friend_request_path(current_user, @user), params: { friend_id: @user.id }, method: :delete, class: "text-reset m-1 btn btn-danger" do %>
-          <span class="text-white">
-            Cancel request
-          </span>
-        <% end %>
-      <% when :requester %>
-        <%= button_to friends_path, params: { friend_id: @user.id }, class: "text-reset m-1 btn btn-primary" do %>
-          <span class="text-white">
-            Add friend
-          </span>
-        <% end %>
-      <% when :friend %>
-        <%= button_to user_remove_friend_path(current_user, @user), method: :delete, class: "text-reset m-1 btn btn-danger", data: { confirm: 'Are you sure?' } do %>
-          <span class="text-white">
-            Remove friend
-          </span>
-        <% end %>
-      <% else %>
-        <%= button_to add_friend_path, params: { requestee_id: @user.id }, class: "text-reset m-1 btn btn-primary" do %>
-          <span class="text-white">
-            Send request
-          </span>
-        <% end %>
-      <% end %>
+      <%= render "manage_relationship" %>
     </div>
   <% if @user == current_user %>
     <div class="d-flex justify-content-center">
