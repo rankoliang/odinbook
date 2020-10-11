@@ -21,6 +21,9 @@ class User < ApplicationRecord
                      through: :friendships,
                      foreign_key: 'friend_id'
 
+  has_many :posts
+  has_many :likes
+
   default_scope { order(:name).with_attached_avatar }
 
   # Include default devise modules. Others available are:

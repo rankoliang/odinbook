@@ -24,6 +24,7 @@ RSpec.describe User, type: :model do
   it { is_expected.to validate_length_of(:name).is_at_most(26) }
 
   it { is_expected.to have_one_attached(:avatar) }
+  it { is_expected.to have_many(:posts) }
 
   describe '.from_omniauth' do
     context 'when a user exists in the database' do
