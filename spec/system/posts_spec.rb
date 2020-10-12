@@ -53,6 +53,7 @@ RSpec.describe 'Posts', type: :system do
 
   context 'when visiting the post index' do
     before do
+      sign_in user
       user.add_friend(friend)
       own_post
       friend_post
@@ -66,24 +67,24 @@ RSpec.describe 'Posts', type: :system do
     let(:friend_post) { friend.posts.create(content: 'I am a friend.') }
     let(:stranger_post) { stranger.posts.create(content: 'I am a stranger.') }
 
-    xit 'can see the content of their own posts' do
+    it 'can see the content of their own posts' do
       expect(main).to have_content own_post.content
     end
 
-    xit "can see the content of a friend's posts" do
+    it "can see the content of a friend's posts" do
       expect(main).to have_content friend_post.content
     end
 
-    xit 'cannot see the content of a stranger' do
+    it 'cannot see the content of a stranger' do
       expect(main).to have_no_content stranger_post.content
     end
 
-    xit 'can delete only delete their own post' do
+    it 'can delete only delete their own post' do
       expect(main).to have_content 'Delete', count: 1
       expect(post_within_dom(own_post)).to have_content 'Delete'
     end
 
-    xit 'can only edit their own post' do
+    it 'can only edit their own post' do
       expect(main).to have_content 'Edit', count: 1
       expect(post_within_dom(own_post)).to have_content 'Edit'
     end

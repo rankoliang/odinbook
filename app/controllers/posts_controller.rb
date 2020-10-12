@@ -5,6 +5,7 @@ class PostsController < ApplicationController
   before_action :authorize_current_user, only: %i[edit update destroy]
 
   def index
+    @posts = Post.feed(current_user)
   end
 
   def create
@@ -33,7 +34,7 @@ class PostsController < ApplicationController
 
   def destroy
     if @post.destroy
-      redirect_back fallback_location: posts_path, alert: 'Post deleted.' 
+      redirect_back fallback_location: posts_path, alert: 'Post deleted.'
     else
       redirect_back fallback_location: posts_path, alert: 'Post could not be deleted'
     end

@@ -91,11 +91,11 @@ RSpec.describe 'Posts', type: :request do
     end
 
     context 'when logged in' do
-      it 'returns http success' do
+      it 'returns http redirect' do
         sign_in user
         patch post_path(user_post), params: { post: { content: updated_post.content } }
 
-        expect(response).to have_http_status(:success)
+        expect(response).to have_http_status(:redirect)
       end
     end
 
