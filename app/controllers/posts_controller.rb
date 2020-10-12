@@ -11,7 +11,7 @@ class PostsController < ApplicationController
     post = current_user.posts.build(post_params)
 
     if post.save
-      redirect_to posts_path, notice: 'Post success!'
+      redirect_back fallback_location: posts_path, notice: 'Post success!'
     else
       render 'index', alert: 'Post failed!'
     end

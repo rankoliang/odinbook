@@ -21,8 +21,8 @@ class User < ApplicationRecord
                      through: :friendships,
                      foreign_key: 'friend_id'
 
-  has_many :posts
-  has_many :likes
+  has_many :posts, dependent: :destroy
+  has_many :likes, dependent: :destroy
 
   default_scope { order(:name).with_attached_avatar }
 

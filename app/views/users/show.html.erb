@@ -40,13 +40,17 @@
   <% end %>
 </div>
 <% if @user == current_user %>
-  <%= form_with(model: @post, local: true, class: 'text-center') do |f| %>
-    <%= render 'devise/shared/error_messages', resource: @post %>
-    <div class="form-group">
-      <%= f.label :content, "What's on your mind?" %>
+  <%= form_with(model: @post, local: true, class: 'text-center card p-3 mb-3') do |f| %>
+    <div class="form-group card-body p-1">
+      <%= f.label :content, "Share a post" %>
+      <%= render 'devise/shared/error_messages', resource: @post %>
       <%= f.text_area :content, class: 'form-control' %>
     </div>
 
     <%= f.submit 'Post', class: 'btn btn-info' %>
   <% end %>
 <% end %>
+<h3>
+  Posts
+</h3>
+<%= render @posts %>

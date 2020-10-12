@@ -5,8 +5,8 @@ RSpec.describe 'Posts', type: :system do
     driven_by(:rack_test)
   end
 
-  let(:post_content) { 'foobar' }
-  let(:updated_post_content) { 'barfoo' }
+  let(:post_content) { 'This is a post.' }
+  let(:updated_post_content) { 'I have edited my post.' }
 
   include_context 'users'
 
@@ -14,18 +14,18 @@ RSpec.describe 'Posts', type: :system do
     before do
       sign_in user
     end
-    xit 'can be created' do
-      visit users_path(user)
+    it 'can be created' do
+      visit user_path(user)
 
-      fill_in 'Post', with: post_content
+      fill_in 'Share a post', with: post_content
       click_button 'Post'
 
       expect(main).to have_content post_content
     end
 
-    xit 'can edit a post' do
+    it 'can edit a post' do
       post_to_be_edited = user.posts.create(content: post_content)
-      visit users_path(user)
+      visit user_path(user)
 
       within post_within_dom(post_to_be_edited) do
         click_on 'Edit'
@@ -39,7 +39,7 @@ RSpec.describe 'Posts', type: :system do
 
     xit 'can delete a post' do
       post_to_be_deleted = user.posts.create(content: post_content)
-      visit users_path(user)
+      visit user_path(user)
 
       within post_within_dom(post_to_be_deleted) do
         click_on 'Delete post'

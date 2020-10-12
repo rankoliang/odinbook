@@ -1,0 +1,12 @@
+<div class="card my-2">
+  <div class="card-body">
+    <%= post.content %>
+    <h6 class="card-subtitle mt-2 text-muted float-right">
+      <%= time_ago_in_words(post.created_at) %> ago by
+      <%= link_to post.user, class: 'text-decoration-none text-reset' do %>
+        <%= post.user.name %>
+        <%= avatar_tag post.user, size: 30, class: 'round-avatar' %>
+      <% end %>
+    </h6>
+  </div>
+</div>

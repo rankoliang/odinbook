@@ -12,6 +12,7 @@ class UsersController < ApplicationController
   def show
     @relationship = current_user.relationship(@user)
     @post = @user.posts.new
+    @posts = Post.where(user: @user)
   end
 
   def edit; end
