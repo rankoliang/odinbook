@@ -46,6 +46,8 @@ RSpec.describe 'UserProfile', type: :system do
       it 'does has an edit profile button' do
         expect(profile).to have_link href: edit_user_path(user)
       end
+
+      it { expect(page).to have_button 'Post' }
     end
 
     context "when a user visits another user's profile" do
@@ -98,9 +100,9 @@ RSpec.describe 'UserProfile', type: :system do
         end
       end
 
-      it 'does not have an edit profile button' do
-        expect(profile).to have_no_link href: edit_user_path(other_user)
-      end
+      it { expect(profile).to have_no_link href: edit_user_path(other_user) }
+
+      it { expect(page).to have_no_button 'Post' }
     end
   end
 end

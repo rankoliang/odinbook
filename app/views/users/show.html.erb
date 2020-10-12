@@ -39,3 +39,14 @@
     </div>
   <% end %>
 </div>
+<% if @user == current_user %>
+  <%= form_with(model: @post, local: true, class: 'text-center') do |f| %>
+    <%= render 'devise/shared/error_messages', resource: @post %>
+    <div class="form-group">
+      <%= f.label :content, "What's on your mind?" %>
+      <%= f.text_area :content, class: 'form-control' %>
+    </div>
+
+    <%= f.submit 'Post', class: 'btn btn-info' %>
+  <% end %>
+<% end %>

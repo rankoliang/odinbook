@@ -11,6 +11,7 @@ class UsersController < ApplicationController
 
   def show
     @relationship = current_user.relationship(@user)
+    @post = @user.posts.new
   end
 
   def edit; end
