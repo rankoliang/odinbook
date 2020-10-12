@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Posts', type: :system do
   before do
-    driven_by(:rack_test)
+    driven_by(:selenium)
   end
 
   let(:post_content) { 'This is a post.' }
@@ -42,7 +42,9 @@ RSpec.describe 'Posts', type: :system do
       visit user_path(user)
 
       within post_within_dom(post_to_be_deleted) do
-        click_on 'Delete'
+        accept_confirm do
+          click_on 'Delete'
+        end
       end
 
       expect(main).to have_no_content post_content

@@ -33,7 +33,7 @@ class PostsController < ApplicationController
 
   def destroy
     if @post.destroy
-      redirect_back fallback_location: posts_path, alert: 'Post deleted!' 
+      redirect_back fallback_location: posts_path, alert: 'Post deleted.' 
     else
       redirect_back fallback_location: posts_path, alert: 'Post could not be deleted'
     end

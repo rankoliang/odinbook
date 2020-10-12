@@ -4,7 +4,10 @@
       <%= post.content %>
     </p>
     <div class="d-flex justify-content-between">
-      <%= link_to 'Edit', edit_post_path(post), class: 'card-link' %>
+      <div>
+        <%= link_to 'Edit', edit_post_path(post), class: 'card-link' %>
+        <%= link_to 'Delete', post_path(post), method: :delete, class: 'card-link text-danger', data: { confirm: 'Are you sure?' } %>
+      </div>
       <h6 class="card-subtitle text-muted d-inline">
         <%= time_ago_in_words(post.created_at) %> ago by
         <%= link_to post.user, class: 'text-decoration-none text-reset' do %>
