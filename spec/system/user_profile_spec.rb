@@ -104,5 +104,40 @@ RSpec.describe 'UserProfile', type: :system do
 
       it { expect(page).to have_no_button 'Post' }
     end
+    context 'when viewing posts' do
+      before do
+        user.add_friend(friend)
+        own_post
+        friend_post
+        stranger_post
+        visit users_path
+      end
+
+      let(:friend) { other_user }
+      let(:stranger) { FactoryBot.create(:user) }
+      let(:own_post) { user.posts.create(content: 'I am myself.') }
+      let(:friend_post) { friend.posts.create(content: 'I am a friend.') }
+      let(:stranger_post) { stranger.posts.create(content: 'I am a stranger.') }
+
+      xit 'can see the content of their own posts' do
+        expect(main).to have_content own_post.content
+      end
+
+      xit "cannot see the content of a friend's posts" do
+        expect(main).to have_no_content friend_post.content
+      end
+
+      xit 'cannot see the content of a stranger' do
+        expect(main).to have_no_content stranger_post.content
+      end
+
+      xit 'can delete a post' do
+        expect(main).to have_content 'Delete'
+      end
+
+      xit 'can edit a post' do
+        expect(main).to have_content 'Edit'
+      end
+    end
   end
 end

@@ -3,7 +3,7 @@ RSpec.shared_examples 'a users resource' do
     it 'redirects to the sign in page' do
       visit visiting_url
 
-      expect(page). to have_current_path(new_user_session_path)
+      expect(page).to have_current_path(new_user_session_path)
     end
   end
 end
