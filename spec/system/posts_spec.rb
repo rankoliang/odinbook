@@ -31,18 +31,18 @@ RSpec.describe 'Posts', type: :system do
         click_on 'Edit'
       end
 
-      fill_in 'content', with: updated_post_content
-      click_button 'Edit post'
+      fill_in 'Edit your post', with: updated_post_content
+      click_button 'Repost'
 
-      expect(main).to have_content post_content
+      expect(main).to have_content updated_post_content
     end
 
-    xit 'can delete a post' do
+    it 'can delete a post' do
       post_to_be_deleted = user.posts.create(content: post_content)
       visit user_path(user)
 
       within post_within_dom(post_to_be_deleted) do
-        click_on 'Delete post'
+        click_on 'Delete'
       end
 
       expect(main).to have_no_content post_content

@@ -1,0 +1,9 @@
+<%= form_with(model: @post, local: true, class: 'text-center card p-3 mb-3', id: "post-#{@post.id}") do |f| %>
+  <div class="form-group card-body p-1">
+    <%= f.label :content, yield(:post_prompt) %>
+    <%= render 'devise/shared/error_messages', resource: @post %>
+    <%= f.text_area :content, class: 'form-control' %>
+  </div>
+
+  <%= f.submit yield(:post_button), class: 'btn btn-info' %>
+<% end %>

@@ -18,9 +18,17 @@ class PostsController < ApplicationController
   end
 
   def edit
+    session[:edit_redirect] = request.referrer
   end
 
   def update
+    if @post.update(post_params)
+      edit_redirect = session[:edit_redirect] || posts_path
+      session[:edit_redirect] = nil
+      redirect_to edit_redirect, notice: 'You have edited your post!'
+    else
+      render 'edit'
+    end
   end
 
   def destroy

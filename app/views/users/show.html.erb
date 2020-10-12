@@ -39,16 +39,10 @@
     </div>
   <% end %>
 </div>
+<% provide :post_prompt, 'Share a post' %>
+<% provide :post_button, 'Post' %>
 <% if @user == current_user %>
-  <%= form_with(model: @post, local: true, class: 'text-center card p-3 mb-3') do |f| %>
-    <div class="form-group card-body p-1">
-      <%= f.label :content, "Share a post" %>
-      <%= render 'devise/shared/error_messages', resource: @post %>
-      <%= f.text_area :content, class: 'form-control' %>
-    </div>
-
-    <%= f.submit 'Post', class: 'btn btn-info' %>
-  <% end %>
+  <%= render "posts/form" %>
 <% end %>
 <h3>
   Posts
