@@ -7,18 +7,18 @@ RSpec.describe 'Posts', type: :request do
 
   describe 'GET posts#index' do
     context 'when not logged in' do
-      xit 'redirects to new user session path' do
-        get posts_path(user)
+      it 'redirects to new user session path' do
+        get posts_path
 
         expect(response).to redirect_to new_user_session_path
       end
     end
 
     context 'when logged in' do
-      xit 'returns http success' do
+      it 'returns http success' do
         sign_in user
 
-        get posts_path(user)
+        get posts_path
 
         expect(response).to have_http_status(:success)
       end
@@ -27,18 +27,20 @@ RSpec.describe 'Posts', type: :request do
 
   describe 'creates a new post' do
     context 'when not logged in' do
-      xit 'redirects to new user session path' do
-        post posts_path(user), params: { post: { content: user_post.content } }
+      it 'redirects to new user session path' do
+        post posts_path, params: { post: { content: user_post.content } }
 
         expect(response).to redirect_to new_user_session_path
       end
     end
 
     context 'when logged in' do
-      xit 'redirects to the index path' do
-        post posts_path(user), params: { post: { content: user_post.content } }
+      it 'redirects to the index path' do
+        sign_in user
 
-        expect(response).to redirect_to posts_path(user)
+        post posts_path, params: { post: { content: user_post.content } }
+
+        expect(response).to redirect_to posts_path
       end
     end
   end
@@ -49,26 +51,26 @@ RSpec.describe 'Posts', type: :request do
     end
 
     context 'when not logged in' do
-      xit 'redirects to new user session path' do
-        get edit_post_path(user, user_post)
+      it 'redirects to new user session path' do
+        get edit_post_path(user_post)
 
         expect(response).to redirect_to new_user_session_path
       end
     end
 
     context 'when logged in' do
-      xit 'returns http success' do
+      it 'returns http success' do
         sign_in user
-        get edit_post_path(user, user_post)
+        get edit_post_path(user_post)
 
         expect(response).to have_http_status(:success)
       end
     end
 
     context 'when logged in as another user' do
-      xit 'returns http unauthorized' do
+      it 'returns http unauthorized' do
         sign_in other_user
-        get edit_post_path(user, user_post)
+        get edit_post_path(user_post)
 
         expect(response).to have_http_status(:unauthorized)
       end
@@ -81,26 +83,26 @@ RSpec.describe 'Posts', type: :request do
     end
 
     context 'when not logged in' do
-      xit 'redirects to new user session path' do
-        patch post_path(user, user_post), params: { post: { content: updated_post.content } }
+      it 'redirects to new user session path' do
+        patch post_path(user_post), params: { post: { content: updated_post.content } }
 
         expect(response).to redirect_to new_user_session_path
       end
     end
 
     context 'when logged in' do
-      xit 'returns http success' do
+      it 'returns http success' do
         sign_in user
-        patch post_path(user, user_post), params: { post: { content: updated_post.content } }
+        patch post_path(user_post), params: { post: { content: updated_post.content } }
 
         expect(response).to have_http_status(:success)
       end
     end
 
     context 'when logged in as another user' do
-      xit 'returns http unauthorized' do
+      it 'returns http unauthorized' do
         sign_in other_user
-        patch post_path(user, user_post), params: { post: { content: updated_post.content } }
+        patch post_path(user_post), params: { post: { content: updated_post.content } }
 
         expect(response).to have_http_status(:unauthorized)
       end
@@ -113,24 +115,24 @@ RSpec.describe 'Posts', type: :request do
     end
 
     context 'when not logged in' do
-      xit 'redirects to new user session path' do
-        delete post_path(user, user_post)
+      it 'redirects to new user session path' do
+        delete post_path(user_post)
 
         expect(response).to redirect_to new_user_session_path
       end
     end
 
     context 'when logged in' do
-      xit 'redirects after success' do
+      it 'redirects after success' do
         sign_in(user)
-        delete post_path(user, user_post)
+        delete post_path(user_post)
 
         expect(response).to have_http_status(:redirect)
       end
     end
 
     context 'when logged in as a different user' do
-      xit 'returns http status unauthorized' do
+      it 'returns http status unauthorized' do
         sign_in(other_user)
         delete post_path(user_post)
 
