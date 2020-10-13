@@ -88,5 +88,12 @@ RSpec.describe 'Posts', type: :system do
       expect(main).to have_content 'Edit', count: 1
       expect(post_within_dom(own_post)).to have_content 'Edit'
     end
+    
+    it 'can add a new post' do
+      fill_in 'Share a post', with: post_content
+      click_on 'Post'
+
+      expect(main).to have_content post_content
+    end
   end
 end
