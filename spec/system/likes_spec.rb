@@ -39,5 +39,4 @@ RSpec.describe 'Likes', type: :system do
       end
     end
   end
-  pending 'solve N + 1 for feed'
 end

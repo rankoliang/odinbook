@@ -1,17 +1,17 @@
 class Post < ApplicationRecord
   belongs_to :user
   has_many :likes, dependent: :destroy
-  default_scope { order(created_at: :desc) }
+  default_scope { includes(likes: :user, user: %i[avatar_attachment]).order(created_at: :desc) }
 
   def self.feed(current_user)
-    friends(current_user).or(Post.where('user_id = ?', current_user.id))
+    friends(current_user)
   end
 
   def self.friends(current_user)
-    where('user_id in (:friends)', friends: current_user.friends.select(&:id))
+    where('user_id in (:friends, :current_user)', friends: current_user.friends.select(&:id), current_user: current_user.id)
   end
 
   def num_likes
-    likes.count
+    likes.length
   end
 end
