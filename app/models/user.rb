@@ -110,4 +110,12 @@ class User < ApplicationRecord
       :friend
     end
   end
+
+  def like(post)
+    likes.create(post: post)
+  end
+
+  def post(content)
+    posts.create(content: content)
+  end
 end

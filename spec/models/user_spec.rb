@@ -189,5 +189,19 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe '#like' do
+    it 'creates a like' do
+      post = other_user.post(Faker::Lorem.paragraph)
+
+      expect { user.like(post) }.to change { post.num_likes }.by 1
+    end
+  end
+
+  describe '#post' do
+    it 'creates a post' do
+      expect { user.post(Faker::Lorem.paragraph) }.to change { user.posts.count }.by 1
+    end
+  end
 end
 # rubocop:enable Metrics/BlockLength

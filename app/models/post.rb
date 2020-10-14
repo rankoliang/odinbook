@@ -10,4 +10,8 @@ class Post < ApplicationRecord
   def self.friends(current_user)
     where('user_id in (:friends)', friends: current_user.friends.select(&:id))
   end
+
+  def num_likes
+    likes.count
+  end
 end
