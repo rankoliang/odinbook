@@ -14,8 +14,8 @@ Rails.application.routes.draw do
   end
 
   resources :posts, except: %i[new show] do
-    post 'like', to: 'like#create'
-    delete 'unlike', to: 'like#destroy'
+    post 'like', to: 'likes#create'
+    delete 'like', to: 'likes#destroy'
   end
 
   post 'friends', to: 'friendships#create'

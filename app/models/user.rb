@@ -115,6 +115,10 @@ class User < ApplicationRecord
     likes.create(post: post)
   end
 
+  def unlike(post)
+    likes.find_by(post: post)&.destroy
+  end
+
   def post(content)
     posts.create(content: content)
   end

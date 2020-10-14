@@ -198,6 +198,16 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe '#unlike' do
+    it 'destroys a like' do
+      post = other_user.post(Faker::Lorem.paragraph)
+
+      user.like(post)
+
+      expect { user.unlike(post) }.to change { post.num_likes }.by -1
+    end
+  end
+
   describe '#post' do
     it 'creates a post' do
       expect { user.post(Faker::Lorem.paragraph) }.to change { user.posts.count }.by 1

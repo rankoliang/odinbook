@@ -25,13 +25,19 @@ RSpec.describe 'Likes', type: :system do
         expect(post_in_dom).to have_button '1 Like'
       end
     end
+
     context 'when a post is unliked' do
       it 'decrements by 1' do
-        click_button '0 Likes'
-        expect(post_in_dom).to have_button '1 Like'
-        click_button '1 Like'
-        expect(post_in_dom).to have_button '0 Likes'
+        post_in_dom = post_within_dom(post)
+
+        within post_in_dom do
+          click_button '0 Likes'
+          expect(post_in_dom).to have_button '1 Like'
+          click_button '1 Like'
+          expect(post_in_dom).to have_button '0 Likes'
+        end
       end
     end
   end
+  pending 'solve N + 1 for feed'
 end
