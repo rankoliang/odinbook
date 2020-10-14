@@ -43,3 +43,22 @@ end
 rescue OpenURI::HTTPError
   puts 'User skipped'
 end
+
+# Add friends & create posts
+User.all.each do |user|
+  user.requestable_friends.sample(rand(7)).each do |friend|
+    user.add_friend(friend)
+  end
+
+  rand(10).times do
+    user.posts.create(content: Faker::Lorem.paragraph, created_at: Faker::Date.backward(days: 365))
+  end
+end
+
+Post.all.each do |post|
+  friends = post.user.friends
+
+  friends.sample(rand(friends.length)).each do |friend|
+    friend.like(post)
+  end
+end
