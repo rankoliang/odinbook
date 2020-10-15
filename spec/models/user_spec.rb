@@ -204,13 +204,23 @@ RSpec.describe User, type: :model do
 
       user.like(post)
 
-      expect { user.unlike(post) }.to change { post.reload.num_likes }.by -1
+      expect { user.unlike(post) }.to change { post.reload.num_likes }.by(-1)
     end
   end
 
   describe '#post' do
     it 'creates a post' do
       expect { user.post(Faker::Lorem.paragraph) }.to change { user.posts.count }.by 1
+    end
+  end
+
+  describe '#comment' do
+    it 'creates a comment' do
+      post = user.post(Faker::Lorem.paragraph)
+
+      expect { user.comment(post, Faker::Lorem.paragraph) }
+        .to change { user.comments.count }.by(1) &
+            change { post.comments.count }.by(1)
     end
   end
 end

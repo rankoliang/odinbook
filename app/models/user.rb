@@ -23,6 +23,7 @@ class User < ApplicationRecord
 
   has_many :posts, dependent: :destroy
   has_many :likes, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   default_scope { order(:name) }
 
@@ -121,5 +122,9 @@ class User < ApplicationRecord
 
   def post(content)
     posts.create(content: content)
+  end
+
+  def comment(post, content)
+    comments.create(post: post, content: content)
   end
 end
