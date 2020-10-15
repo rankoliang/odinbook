@@ -7,13 +7,14 @@ RSpec.describe 'Comments', type: :request do
 
   describe 'POST /post/:post_id/comment/:id' do
     context 'when not logged in' do
-      it 'redirects to new user session path' do
+      xit 'redirects to new user session path' do
+        post post_comments_path(user_post), params: { comment: { content: Faker::Lorem.paragraph } }
         expect(response).to redirect_to new_user_session_path
       end
     end
 
     context 'when logged in' do
-      it 'redirects the user' do
+      xit 'redirects the user' do
         sign_in user
         post post_comments_path(user_post), params: { comment: { content: Faker::Lorem.paragraph } }
 
@@ -25,13 +26,15 @@ RSpec.describe 'Comments', type: :request do
 
   describe 'DELETE /post/:post_id/comment/:id' do
     context 'when not logged in' do
-      it 'redirects to a new user session path' do
+      xit 'redirects to a new user session path' do
+        delete post_comment_path(user_post, comment)
+
         expect(response).to redirect_to new_user_session_path
       end
     end
 
     context 'when logged in' do
-      it 'redirects the user' do
+      xit 'redirects the user' do
         sign_in user
         delete post_comment_path(user_post, comment)
 
@@ -41,7 +44,7 @@ RSpec.describe 'Comments', type: :request do
     end
 
     context 'when logged in as another user' do
-      it 'returns http unauthorized' do
+      xit 'returns http unauthorized' do
         sign_in other_user
         delete post_comment_path(user_post, comment)
 
@@ -52,14 +55,14 @@ RSpec.describe 'Comments', type: :request do
 
   describe 'GET /post/:post_id/comment/:id/edit' do
     context 'when not logged in' do
-      it 'redirects to a new user session path' do
+      xit 'redirects to a new user session path' do
         get edit_post_comment_path(user_post, comment)
         expect(response).to redirect_to new_user_session_path
       end
     end
 
     context 'when logged in' do
-      it 'redirects the user' do
+      xit 'redirects the user' do
         sign_in user
         get edit_post_comment_path(user_post, comment)
 
@@ -69,7 +72,7 @@ RSpec.describe 'Comments', type: :request do
     end
 
     context 'when logged in as another user' do
-      it 'returns http unauthorized' do
+      xit 'returns http unauthorized' do
         sign_in other_user
         get edit_post_comment_path(user_post, comment)
 
@@ -80,14 +83,14 @@ RSpec.describe 'Comments', type: :request do
 
   describe 'patch /post/:post_id/comment/:id' do
     context 'when not logged in' do
-      it 'redirects to a new user session path' do
+      xit 'redirects to a new user session path' do
         patch post_comment_path(user_post, comment), params: { comment: { content: Faker::Lorem.paragraph } }
         expect(response).to redirect_to new_user_session_path
       end
     end
 
     context 'when logged in' do
-      it 'redirects the user' do
+      xit 'redirects the user' do
         sign_in user
         patch post_comment_path(user_post, comment), params: { comment: { content: Faker::Lorem.paragraph } }
 
@@ -97,7 +100,7 @@ RSpec.describe 'Comments', type: :request do
     end
 
     context 'when logged in as another user' do
-      it 'returns http unauthorized' do
+      xit 'returns http unauthorized' do
         sign_in other_user
         patch post_comment_path(user_post, comment), params: { comment: { content: Faker::Lorem.paragraph } }
 

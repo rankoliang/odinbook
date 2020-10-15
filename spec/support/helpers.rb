@@ -11,8 +11,13 @@ module Helpers
     "#{count} #{word.pluralize}"
   end
 
-  def post_within_dom(post)
+  def post_element_for(post)
     id = "post-#{post.id}"
+    find_by_id(id)
+  end
+
+  def comment_element_for(comment)
+    id = "comment-#{post.id}"
     find_by_id(id)
   end
 end

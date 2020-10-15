@@ -27,7 +27,7 @@ RSpec.describe 'Posts', type: :system do
       post_to_be_edited = user.posts.create(content: post_content)
       visit user_path(user)
 
-      within post_within_dom(post_to_be_edited) do
+      within post_element_for(post_to_be_edited) do
         click_on 'Edit'
       end
 
@@ -41,7 +41,7 @@ RSpec.describe 'Posts', type: :system do
       post_to_be_deleted = user.posts.create(content: post_content)
       visit user_path(user)
 
-      within post_within_dom(post_to_be_deleted) do
+      within post_element_for(post_to_be_deleted) do
         accept_confirm do
           click_on 'Delete'
         end
@@ -81,12 +81,12 @@ RSpec.describe 'Posts', type: :system do
 
     it 'can delete only delete their own post' do
       expect(main).to have_content 'Delete', count: 1
-      expect(post_within_dom(own_post)).to have_content 'Delete'
+      expect(post_element_for(own_post)).to have_content 'Delete'
     end
 
     it 'can only edit their own post' do
       expect(main).to have_content 'Edit', count: 1
-      expect(post_within_dom(own_post)).to have_content 'Edit'
+      expect(post_element_for(own_post)).to have_content 'Edit'
     end
     
     it 'can add a new post' do

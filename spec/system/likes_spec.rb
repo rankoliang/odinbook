@@ -18,23 +18,23 @@ RSpec.describe 'Likes', type: :system do
     let(:post) { other_user.posts.create(content: Faker::Lorem.paragraph) }
 
     it 'increments by 1' do
-      post_in_dom = post_within_dom(post)
+      post_element = post_element_for(post)
 
-      within post_in_dom do
+      within post_element do
         click_button '0 Likes'
-        expect(post_in_dom).to have_button '1 Like'
+        expect(post_element).to have_button '1 Like'
       end
     end
 
     context 'when a post is unliked' do
       it 'decrements by 1' do
-        post_in_dom = post_within_dom(post)
+        post_element = post_element_for(post)
 
-        within post_in_dom do
+        within post_element do
           click_button '0 Likes'
-          expect(post_in_dom).to have_button '1 Like'
+          expect(post_element).to have_button '1 Like'
           click_button '1 Like'
-          expect(post_in_dom).to have_button '0 Likes'
+          expect(post_element).to have_button '0 Likes'
         end
       end
     end
