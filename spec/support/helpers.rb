@@ -17,7 +17,7 @@ module Helpers
   end
 
   def comment_element_for(comment)
-    id = "comment-#{post.id}"
+    id = "comment-#{comment.id}"
     find_by_id(id)
   end
 end

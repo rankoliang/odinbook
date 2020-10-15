@@ -7,7 +7,7 @@ RSpec.describe 'Comments', type: :request do
 
   describe 'POST /post/:post_id/comment/:id' do
     context 'when not logged in' do
-      xit 'redirects to new user session path' do
+      it 'redirects to new user session path' do
         post post_comments_path(user_post), params: { comment: { content: Faker::Lorem.paragraph } }
         expect(response).to redirect_to new_user_session_path
       end

@@ -52,4 +52,31 @@ RSpec.describe 'Comments', type: :system do
       expect(page).to have_no_content comment_content
     end
   end
+
+  context 'when not logged in' do
+    before do
+      user_post
+      other_user.add_friend(user)
+      sign_in other_user
+      visit posts_path
+    end
+
+    let(:user_post) { user.post(Faker::Lorem.paragraph) }
+    let(:comment_content) { Faker::Lorem.paragraph }
+    let(:updated_comment_content) { Faker::Lorem.paragraph }
+
+    xit 'cannot edit and update a comment' do
+      comment = user.comment(user_post, comment_content)
+
+      visit posts_path
+      expect(comment_element_for(comment)).to have_no_content 'Edit'
+    end
+
+    xit 'can delete a comment' do
+      comment = user.comment(user_post, comment_content)
+
+      visit posts_path
+      expect(comment_element_for(comment)).to have_no_content 'Delete'
+    end
+  end
 end
