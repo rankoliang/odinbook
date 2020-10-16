@@ -27,4 +27,8 @@ class ApplicationController < ActionController::Base
   def set_requesters
     @requesters = current_user.requesters
   end
+
+  def new_comment
+    @comment = current_user.comments.build
+  end
 end

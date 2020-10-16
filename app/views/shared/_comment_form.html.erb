@@ -1,0 +1,13 @@
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Comment
+  </button>
+  <div class="dropdown-menu p-4" aria-labelledby="dropdownMenuButton">
+    <%= form_with(model: [post, post.comments.build], local: true, class: 'form-group comment_form') do |f| %>
+      <%= f.label :content, 'Comment' %>
+      <%= f.text_area :content, class: 'form-control my-1' %>
+
+      <%= f.submit 'Post', class: 'btn btn-primary btn-sm float-right my-1' %>
+    <% end %>
+  </div>
+</div>

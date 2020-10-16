@@ -1,0 +1,5 @@
+<% if post.likes.any? { |like| like.user == current_user } %>
+  <%= button_to likes(post), post_like_path(post), method: :delete, class: 'btn btn-primary btn-sm mr-3'  %>
+<% else %>
+  <%= button_to likes(post), post_like_path(post), class: 'btn btn-outline-primary btn-sm mr-3'  %>
+<% end %>

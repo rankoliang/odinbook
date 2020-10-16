@@ -6,7 +6,7 @@ class CommentsController < ApplicationController
   before_action :authorize_current_user, only: %i[destroy edit update]
 
   def create
-    @comment = current_user.comment(@post, comment_params)
+    @comment = current_user.comment(@post, comment_params[:content])
 
     if @comment
       redirect_back fallback_location: posts_path, notice: 'Comment posted!'

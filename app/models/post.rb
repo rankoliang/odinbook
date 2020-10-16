@@ -2,7 +2,7 @@ class Post < ApplicationRecord
   belongs_to :user
   has_many :likes, dependent: :destroy
   has_many :comments, dependent: :destroy
-  default_scope { includes(likes: :user, user: %i[avatar_attachment]).order(created_at: :desc) }
+  default_scope { includes(comments: [user: :avatar_attachment], likes: :user, user: %i[avatar_attachment]).order(created_at: :desc) }
 
   def self.feed(current_user)
     friends(current_user)

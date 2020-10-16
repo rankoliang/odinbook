@@ -1,0 +1,6 @@
+<div class="float-right">
+  <% if post.user == current_user %>
+    <%= link_to 'Edit', edit_post_path(post), class: 'card-link ml-3' %>
+    <%= link_to 'Delete', post_path(post), method: :delete, class: 'card-link text-danger mr-1', data: { confirm: 'Are you sure?' } %>
+  <% end %>
+</div>

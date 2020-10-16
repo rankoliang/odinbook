@@ -18,11 +18,13 @@ RSpec.describe 'Comments', type: :system do
     let(:comment_content) { Faker::Lorem.paragraph }
     let(:updated_comment_content) { Faker::Lorem.paragraph }
 
-    xit 'can create a comment' do
+    it 'can create a comment' do
       click_on 'Comment'
 
-      fill_in 'Comment', with: comment_content
-      click_button 'Submit comment'
+      within find('form.comment_form') do
+        fill_in 'Comment', with: comment_content
+        click_button 'Post'
+      end
 
       expect(page).to have_content comment_content
     end

@@ -37,5 +37,7 @@ module Odinbook
                        view_specs: false,
                        controller_specs: false
     end
+
+    config.active_record.verbose_query_logs = false
   end
 end
