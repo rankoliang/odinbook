@@ -5,7 +5,7 @@ class PostsController < ApplicationController
   before_action :authorize_current_user, only: %i[edit update destroy]
 
   def index
-    @posts = Post.feed(current_user)
+    @posts = Post.feed(current_user, page: params[:page])
     @post = current_user.posts.build
   end
 

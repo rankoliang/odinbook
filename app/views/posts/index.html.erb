@@ -1,4 +1,8 @@
 <% provide :post_prompt, 'Share a post' %>
 <% provide :post_button, 'Post' %>
 <%= render 'form' %>
+<div class="d-flex justify-content-center align-items-center justify-content-lg-between flex-wrap flex-lg-nowrap pb-2 pb-lg-0" >
+  <h1 class="my-0 mx-2">Posts</h1>
+  <%= will_paginate @feed %>
+</div>
 <%= render @posts %>

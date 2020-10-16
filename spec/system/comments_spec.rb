@@ -29,7 +29,7 @@ RSpec.describe 'Comments', type: :system do
       expect(page).to have_content comment_content
     end
 
-    xit 'can edit and update a comment' do
+    it 'can edit and update a comment' do
       comment = user.comment(user_post, comment_content)
 
       visit posts_path
@@ -43,12 +43,14 @@ RSpec.describe 'Comments', type: :system do
       expect(page).to have_content updated_comment_content
     end
 
-    xit 'can delete a comment' do
+    it 'can delete a comment' do
       comment = user.comment(user_post, comment_content)
 
       visit posts_path
       within comment_element_for(comment) do
-        click_on 'Delete'
+        accept_confirm do
+          click_on 'Delete'
+        end
       end
 
       expect(page).to have_no_content comment_content
@@ -67,14 +69,14 @@ RSpec.describe 'Comments', type: :system do
     let(:comment_content) { Faker::Lorem.paragraph }
     let(:updated_comment_content) { Faker::Lorem.paragraph }
 
-    xit 'cannot edit and update a comment' do
+    it 'cannot edit and update a comment' do
       comment = user.comment(user_post, comment_content)
 
       visit posts_path
       expect(comment_element_for(comment)).to have_no_content 'Edit'
     end
 
-    xit 'can delete a comment' do
+    it 'cannot delete a comment' do
       comment = user.comment(user_post, comment_content)
 
       visit posts_path

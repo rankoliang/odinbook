@@ -1,0 +1,9 @@
+<%= form_with(model: [@comment.post, @comment], local: true, class: 'text-center card p-3 mb-3', id: "comment-#{@comment.id}") do |f| %>
+  <div class="form-group card-body p-1">
+    <%= f.label :content, 'Comment' %>
+    <%= render 'devise/shared/error_messages', resource: @comment %>
+    <%= f.text_area :content, class: 'form-control' %>
+  </div>
+
+  <%= f.submit 'Edit comment', class: 'btn btn-primary' %>
+<% end %>

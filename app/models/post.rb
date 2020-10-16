@@ -4,8 +4,8 @@ class Post < ApplicationRecord
   has_many :comments, dependent: :destroy
   default_scope { includes(comments: [user: :avatar_attachment], likes: :user, user: %i[avatar_attachment]).order(created_at: :desc) }
 
-  def self.feed(current_user)
-    friends(current_user)
+  def self.feed(current_user, page: 1, per_page: 7)
+    friends(current_user).paginate(page: page, per_page: per_page) if current_user
   end
 
   def self.friends(current_user)
