@@ -19,4 +19,14 @@
     </div>
   </div>
 </div>
+<div class="card collapse" id="post-<%= post.id %>-new-comment">
+  <%= form_with(model: [post, post.comments.build], local: true, class: 'form-group comment_form m-3 p-0') do |f| %>
+    <%= f.label :content, 'Comment' %>
+    <%= f.text_area :content, class: 'form-control my-1' %>
+
+    <div class="d-flex justify-content-end">
+      <%= f.submit 'Post', class: 'btn btn-primary my-2' %>
+    </div>
+  <% end %>
+</div>
 <%= render post.comments.select(&:persisted?) %>

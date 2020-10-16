@@ -62,3 +62,9 @@ Post.all.each do |post|
     friend.like(post)
   end
 end
+
+User.all.each do |user|
+  rand(10).times do
+    user.comment(Post.all.sample, Faker::Lorem.paragraph)
+  end
+end

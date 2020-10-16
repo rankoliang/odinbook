@@ -13,6 +13,9 @@
         <%= link_to 'Find Friends', users_path, class: 'nav-link' %>
       <% end %>
       <% if user_signed_in? %>
+        <%= activatable_nav_li 'Feed' do %>
+          <%= link_to 'Feed', posts_path, class: 'nav-link' %>
+        <% end %>
         <%= activatable_nav_li 'Sent Requests' do %>
           <%= link_to 'Sent Requests', sent_requests_path, class: 'nav-link' %>
         <% end %>
