@@ -6,7 +6,7 @@ This is a rails app with similar functionality to Facebook.
 The full project requirements can be found
 [here](https://www.theodinproject.com/lessons/final-project).
 
-You can visit the deployed site at this link: odinbook.rankoliang.com
+You can visit the deployed site at this link: http://odinbook.rankoliang.com
 
 If you have any feedback, questions, or see any inappropriate content on the site,
 please feel free to open an issue.
